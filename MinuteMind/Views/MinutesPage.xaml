@@ -1,10 +1,394 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MinuteMind.Models"
              x:Class="MinuteMind.Views.MinutesPage"
-             Title="Minutes">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
-        <Label Text="Meeting Minutes" Style="{StaticResource HeadlineLarge}" HorizontalTextAlignment="Center" />
-        <Label Text="Coming soon" Style="{StaticResource BodyMedium}" HorizontalTextAlignment="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource Surface}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="64,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Padding="16,0"
+              VerticalOptions="Center"
+              BackgroundColor="{StaticResource Surface}">
+
+            <Border WidthRequest="40"
+                    HeightRequest="40"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="&#x2190;"
+                       FontSize="22"
+                       TextColor="{StaticResource OnSurface}"
+                       Opacity="0.6"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <Label Grid.Column="1"
+                   Text="Meeting Minutes"
+                   FontFamily="PlusJakartaBold"
+                   FontSize="24"
+                   TextColor="{StaticResource OnSurface}"
+                   VerticalOptions="Center"
+                   Margin="12,0,0,0" />
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Padding="24,0,24,32" Spacing="24">
+
+                <!-- Hero Header with left border accent -->
+                <Border StrokeThickness="0"
+                        BackgroundColor="Transparent"
+                        Padding="24,8">
+                    <Grid ColumnDefinitions="4,*" ColumnSpacing="24">
+                        <!-- Primary accent bar -->
+                        <BoxView WidthRequest="4"
+                                 BackgroundColor="{StaticResource Primary}"
+                                 CornerRadius="2"
+                                 VerticalOptions="Fill" />
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="8">
+                            <Label Text="INTERNAL SYNC"
+                                   FontFamily="InterMedium"
+                                   FontSize="11"
+                                   CharacterSpacing="2"
+                                   TextColor="{StaticResource OnSurfaceVariant}"
+                                   Opacity="0.7" />
+
+                            <Label Text="{Binding MeetingTitle}"
+                                   FontFamily="PlusJakartaBold"
+                                   FontSize="36"
+                                   CharacterSpacing="0"
+                                   TextColor="{StaticResource OnSurface}" />
+
+                            <HorizontalStackLayout Spacing="16" Margin="0,8,0,0">
+                                <HorizontalStackLayout Spacing="4">
+                                    <Label Text="&#x1F4C5;"
+                                           FontSize="14"
+                                           VerticalOptions="Center" />
+                                    <Label Text="{Binding MeetingDate}"
+                                           FontFamily="InterMedium"
+                                           FontSize="14"
+                                           TextColor="{StaticResource OnSurfaceVariant}"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="4">
+                                    <Label Text="&#x23F1;"
+                                           FontSize="14"
+                                           VerticalOptions="Center" />
+                                    <Label Text="{Binding MeetingDuration}"
+                                           FontFamily="InterMedium"
+                                           FontSize="14"
+                                           TextColor="{StaticResource OnSurfaceVariant}"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Action Buttons -->
+                <HorizontalStackLayout Spacing="12" HorizontalOptions="Start">
+                    <!-- Edit Minutes -->
+                    <Border StrokeThickness="1"
+                            Stroke="{StaticResource OutlineVariant}"
+                            StrokeShape="RoundRectangle 24"
+                            Padding="24,14"
+                            BackgroundColor="Transparent">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EditMinutesCommand}" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Edit Minutes"
+                               FontFamily="PlusJakartaSemiBold"
+                               FontSize="14"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- Export PDF -->
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 24"
+                            Padding="24,14">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
+                                <GradientStop Color="{StaticResource PrimaryContainer}" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource PrimaryBrush}"
+                                    Offset="0,8"
+                                    Radius="24"
+                                    Opacity="0.1" />
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExportPdfCommand}" />
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="8">
+                            <Image Source="download.png"
+                                   HeightRequest="16"
+                                   WidthRequest="16"
+                                   VerticalOptions="Center" />
+                            <Label Text="Export to PDF"
+                                   FontFamily="PlusJakartaSemiBold"
+                                   FontSize="14"
+                                   TextColor="{StaticResource OnPrimary}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </HorizontalStackLayout>
+
+                <!-- Attendees Card -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        Padding="32"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12" Radius="32" Opacity="0.04" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="24">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="&#x1F465;"
+                                   FontSize="18"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" />
+                            <Label Text="Attendees"
+                                   FontFamily="PlusJakartaBold"
+                                   FontSize="18"
+                                   TextColor="{StaticResource OnSurface}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <VerticalStackLayout Spacing="16"
+                                             BindableLayout.ItemsSource="{Binding Attendees}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <HorizontalStackLayout Spacing="12">
+                                        <Border WidthRequest="32"
+                                                HeightRequest="32"
+                                                BackgroundColor="{StaticResource SecondaryContainer}"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 16">
+                                            <Label Text="{Binding ., StringFormat='{0:0}'}"
+                                                   FontFamily="PlusJakartaBold"
+                                                   FontSize="12"
+                                                   TextColor="{StaticResource OnSecondaryContainer}"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center" />
+                                        </Border>
+                                        <Label Text="{Binding .}"
+                                               FontFamily="InterMedium"
+                                               FontSize="16"
+                                               TextColor="{StaticResource OnSurface}"
+                                               VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Discussion Points Card -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        Padding="32"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12" Radius="32" Opacity="0.04" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="24">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="&#x1F4CA;"
+                                   FontSize="18"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" />
+                            <Label Text="Key Discussion Points"
+                                   FontFamily="PlusJakartaBold"
+                                   FontSize="18"
+                                   TextColor="{StaticResource OnSurface}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <VerticalStackLayout Spacing="16"
+                                             BindableLayout.ItemsSource="{Binding DiscussionPoints}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <Grid ColumnDefinitions="6,*" ColumnSpacing="16">
+                                        <Border WidthRequest="6"
+                                                HeightRequest="6"
+                                                BackgroundColor="{StaticResource Primary}"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 3"
+                                                VerticalOptions="Start"
+                                                Margin="0,8,0,0" />
+                                        <Label Grid.Column="1"
+                                               Text="{Binding .}"
+                                               FontFamily="InterRegular"
+                                               FontSize="16"
+                                               LineHeight="1.6"
+                                               TextColor="{StaticResource OnSurfaceVariant}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Decisions Card (Primary background) -->
+                <Border BackgroundColor="{StaticResource Primary}"
+                        Padding="40"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource PrimaryBrush}"
+                                Offset="0,12" Radius="32" Opacity="0.15" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="32">
+                        <HorizontalStackLayout Spacing="12">
+                            <Label Text="&#x2696;"
+                                   FontSize="18"
+                                   TextColor="#A3C9FF"
+                                   VerticalOptions="Center" />
+                            <Label Text="Decisions"
+                                   FontFamily="PlusJakartaBold"
+                                   FontSize="20"
+                                   TextColor="{StaticResource OnPrimary}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <VerticalStackLayout Spacing="16"
+                                             BindableLayout.ItemsSource="{Binding Decisions}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="models:Decision">
+                                    <Border BackgroundColor="#1AFFFFFF"
+                                            Padding="24"
+                                            StrokeThickness="1"
+                                            Stroke="#1AFFFFFF"
+                                            StrokeShape="RoundRectangle 12">
+                                        <VerticalStackLayout Spacing="8">
+                                            <Label Text="{Binding Category}"
+                                                   FontFamily="InterSemiBold"
+                                                   FontSize="10"
+                                                   CharacterSpacing="2"
+                                                   TextColor="#A3C9FF" />
+                                            <Label Text="{Binding Text}"
+                                                   FontFamily="PlusJakartaBold"
+                                                   FontSize="18"
+                                                   LineHeight="1.4"
+                                                   TextColor="{StaticResource OnPrimary}" />
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Action Items Card -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLow}"
+                        Padding="32"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+                    <VerticalStackLayout Spacing="24">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="&#x2705;"
+                                   FontSize="18"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" />
+                            <Label Text="Action Items"
+                                   FontFamily="PlusJakartaBold"
+                                   FontSize="18"
+                                   TextColor="{StaticResource OnSurface}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <VerticalStackLayout Spacing="12"
+                                             BindableLayout.ItemsSource="{Binding ActionItems}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="models:ActionItem">
+                                    <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                                            Padding="16"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 12">
+                                        <Grid ColumnDefinitions="24,*" ColumnSpacing="16">
+                                            <!-- Checkbox placeholder -->
+                                            <Border WidthRequest="20"
+                                                    HeightRequest="20"
+                                                    StrokeThickness="2"
+                                                    Stroke="{StaticResource Outline}"
+                                                    BackgroundColor="Transparent"
+                                                    StrokeShape="RoundRectangle 4"
+                                                    VerticalOptions="Start"
+                                                    Margin="0,2,0,0">
+                                                <Label Text="{Binding IsCompleted, StringFormat='{}{0}'}"
+                                                       IsVisible="{Binding IsCompleted}"
+                                                       FontSize="14"
+                                                       TextColor="{StaticResource Primary}"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center">
+                                                    <!-- Show checkmark when completed -->
+                                                </Label>
+                                            </Border>
+
+                                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                                <Label Text="{Binding Description}"
+                                                       FontFamily="InterMedium"
+                                                       FontSize="16"
+                                                       TextColor="{StaticResource OnSurface}" />
+                                                <Label FontFamily="InterRegular"
+                                                       FontSize="12"
+                                                       TextColor="{StaticResource OnSurfaceVariant}">
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="Assigned to: {0} • Due {1:MMM dd}">
+                                                            <Binding Path="Assignee" />
+                                                            <Binding Path="DueDate" />
+                                                        </MultiBinding>
+                                                    </Label.Text>
+                                                </Label>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- AI Generated Footer -->
+                <Border BackgroundColor="#4DB8D3FD"
+                        StrokeThickness="1"
+                        Stroke="#80B8D3FD"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="16,10"
+                        HorizontalOptions="Center"
+                        Margin="0,16,0,0">
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                        <Image Source="sparkle.png"
+                               HeightRequest="14"
+                               WidthRequest="14"
+                               VerticalOptions="Center" />
+                        <Label Text="AI-GENERATED INTELLIGENCE LAYER"
+                               FontFamily="InterSemiBold"
+                               FontSize="11"
+                               CharacterSpacing="2"
+                               TextColor="{StaticResource Secondary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
 </ContentPage>

@@ -2,10 +2,227 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinuteMind.Views.ExportPage"
-             Title="Export"
+             BackgroundColor="{StaticResource Surface}"
+             Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
-        <Label Text="Export Minutes" Style="{StaticResource HeadlineLarge}" HorizontalTextAlignment="Center" />
-        <Label Text="Coming soon" Style="{StaticResource BodyMedium}" HorizontalTextAlignment="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="64,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*"
+              Padding="16,0"
+              VerticalOptions="Center"
+              BackgroundColor="{StaticResource Surface}">
+
+            <Border WidthRequest="40"
+                    HeightRequest="40"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="&#x2715;"
+                       FontSize="20"
+                       TextColor="{StaticResource OnSurface}"
+                       Opacity="0.6"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <Label Grid.Column="1"
+                   Text="Export Minutes"
+                   FontFamily="PlusJakartaBold"
+                   FontSize="24"
+                   TextColor="{StaticResource OnSurface}"
+                   VerticalOptions="Center"
+                   Margin="12,0,0,0" />
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Padding="24,8,24,32" Spacing="0">
+
+                <!-- Success Icon -->
+                <Border WidthRequest="48"
+                        HeightRequest="48"
+                        BackgroundColor="{StaticResource SecondaryContainer}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 24"
+                        HorizontalOptions="Start"
+                        Margin="0,0,0,16">
+                    <Label Text="&#x2713;"
+                           FontSize="24"
+                           TextColor="{StaticResource Primary}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Label Text="Your minutes are ready to share."
+                       FontFamily="PlusJakartaBold"
+                       FontSize="30"
+                       CharacterSpacing="0"
+                       TextColor="{StaticResource OnSurface}"
+                       Margin="0,0,0,8" />
+
+                <Label Text="The AI has finalized your meeting summary, key action items, and next steps into a polished document."
+                       FontFamily="InterRegular"
+                       FontSize="16"
+                       LineHeight="1.6"
+                       TextColor="{StaticResource OnSurfaceVariant}"
+                       Margin="0,0,0,40" />
+
+                <!-- Document Preview Card -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        Padding="32"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource OutlineVariant}"
+                        StrokeShape="RoundRectangle 32"
+                        Margin="0,0,0,48">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12" Radius="32" Opacity="0.04" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="24">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="DOCUMENT PREVIEW"
+                                       FontFamily="InterSemiBold"
+                                       FontSize="10"
+                                       CharacterSpacing="2"
+                                       TextColor="{StaticResource Primary}" />
+                                <Label Text="{Binding MeetingTitle, StringFormat='{0}.pdf'}"
+                                       FontFamily="PlusJakartaBold"
+                                       FontSize="20"
+                                       TextColor="{StaticResource OnSurface}" />
+                                <Label Text="{Binding ExportDate}"
+                                       FontFamily="InterRegular"
+                                       FontSize="14"
+                                       TextColor="{StaticResource OnSurfaceVariant}" />
+                            </VerticalStackLayout>
+                            <Border Grid.Column="1"
+                                    BackgroundColor="{StaticResource SurfaceContainerLow}"
+                                    Padding="8"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 8">
+                                <Image Source="file_regular.png"
+                                       HeightRequest="24"
+                                       WidthRequest="24" />
+                            </Border>
+                        </Grid>
+
+                        <!-- PDF skeleton -->
+                        <Border BackgroundColor="{StaticResource SurfaceContainerLow}"
+                                Padding="24"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16">
+                            <VerticalStackLayout Spacing="12">
+                                <BoxView HeightRequest="16" CornerRadius="8" BackgroundColor="{StaticResource SurfaceContainerHighest}" HorizontalOptions="Fill" WidthRequest="240" />
+                                <BoxView HeightRequest="12" CornerRadius="6" BackgroundColor="{StaticResource SurfaceContainerHighest}" Opacity="0.6" HorizontalOptions="Fill" WidthRequest="160" />
+                                <BoxView HeightRequest="12" CornerRadius="6" BackgroundColor="{StaticResource SurfaceContainerHighest}" Opacity="0.4" HorizontalOptions="Fill" Margin="0,12,0,0" />
+                                <BoxView HeightRequest="12" CornerRadius="6" BackgroundColor="{StaticResource SurfaceContainerHighest}" Opacity="0.4" HorizontalOptions="Fill" WidthRequest="280" />
+                                <BoxView HeightRequest="12" CornerRadius="6" BackgroundColor="{StaticResource SurfaceContainerHighest}" Opacity="0.4" HorizontalOptions="Fill" WidthRequest="200" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Download Button -->
+                <Border StrokeThickness="0"
+                        StrokeShape="RoundRectangle 28"
+                        HeightRequest="64"
+                        Margin="0,0,0,32">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
+                            <GradientStop Color="{StaticResource PrimaryContainer}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource PrimaryBrush}"
+                                Offset="0,8" Radius="24" Opacity="0.2" />
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding DownloadPdfCommand}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="12"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                        <Image Source="download.png"
+                               HeightRequest="20"
+                               WidthRequest="20"
+                               VerticalOptions="Center" />
+                        <Label Text="Download PDF"
+                               FontFamily="PlusJakartaBold"
+                               FontSize="18"
+                               TextColor="{StaticResource OnPrimary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Share Section -->
+                <Label Text="SHARE WITH TEAM"
+                       FontFamily="InterSemiBold"
+                       FontSize="12"
+                       CharacterSpacing="2"
+                       TextColor="{StaticResource OnSurfaceVariant}"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,24" />
+
+                <Grid ColumnDefinitions="*,*,*"
+                      ColumnSpacing="16"
+                      HorizontalOptions="Center">
+
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Border WidthRequest="56" HeightRequest="56"
+                                BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                                StrokeThickness="1" Stroke="{StaticResource OutlineVariant}"
+                                StrokeShape="RoundRectangle 16">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SharePdfCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="&#x2709;" FontSize="22" TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="EMAIL" FontFamily="InterMedium" FontSize="11"
+                               TextColor="{StaticResource OnSurfaceVariant}" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Border WidthRequest="56" HeightRequest="56"
+                                BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                                StrokeThickness="1" Stroke="{StaticResource OutlineVariant}"
+                                StrokeShape="RoundRectangle 16">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SharePdfCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="&#x2B06;" FontSize="22" TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="SHARE" FontFamily="InterMedium" FontSize="11"
+                               TextColor="{StaticResource OnSurfaceVariant}" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Border WidthRequest="56" HeightRequest="56"
+                                BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                                StrokeThickness="1" Stroke="{StaticResource OutlineVariant}"
+                                StrokeShape="RoundRectangle 16">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SharePdfCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="&#x2026;" FontSize="22" TextColor="{StaticResource OnSurfaceVariant}"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="MORE" FontFamily="InterMedium" FontSize="11"
+                               TextColor="{StaticResource OnSurfaceVariant}" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
 </ContentPage>

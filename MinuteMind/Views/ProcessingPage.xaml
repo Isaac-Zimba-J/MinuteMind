@@ -1,12 +1,207 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MinuteMind.Models"
              x:Class="MinuteMind.Views.ProcessingPage"
-             Title="Processing"
+             BackgroundColor="{StaticResource Surface}"
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
-        <ActivityIndicator IsRunning="True" Color="{StaticResource Primary}" />
-        <Label Text="Processing..." Style="{StaticResource HeadlineLarge}" HorizontalTextAlignment="Center" />
-    </VerticalStackLayout>
+
+    <Grid Padding="24" RowDefinitions="*">
+
+        <VerticalStackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="0">
+
+            <!-- Title -->
+            <Label Text="Processing Meeting..."
+                   FontFamily="PlusJakartaBold"
+                   FontSize="30"
+                   CharacterSpacing="0"
+                   TextColor="{StaticResource OnSurface}"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,0,0,48" />
+
+            <!-- Spinner Ring -->
+            <Grid WidthRequest="192"
+                  HeightRequest="192"
+                  HorizontalOptions="Center"
+                  Margin="0,0,0,64">
+
+                <!-- Outer track ring -->
+                <Border WidthRequest="192"
+                        HeightRequest="192"
+                        StrokeThickness="6"
+                        Stroke="{StaticResource SurfaceContainerHigh}"
+                        BackgroundColor="Transparent"
+                        StrokeShape="RoundRectangle 96"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                <!-- Spinning activity indicator -->
+                <ActivityIndicator IsRunning="True"
+                                   Color="{StaticResource Primary}"
+                                   WidthRequest="192"
+                                   HeightRequest="192"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
+                <!-- Center icon + label -->
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="8">
+                    <Image Source="mic.png"
+                           HeightRequest="48"
+                           WidthRequest="48"
+                           HorizontalOptions="Center" />
+                    <Label Text="ANALYZING"
+                           FontFamily="InterSemiBold"
+                           FontSize="10"
+                           CharacterSpacing="3"
+                           TextColor="{StaticResource Primary}"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Processing Steps -->
+            <VerticalStackLayout Spacing="16"
+                                 Padding="16,0"
+                                 BindableLayout.ItemsSource="{Binding Steps}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:ProcessingStep">
+                        <Border Padding="20"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Status}"
+                                             Value="{x:Static models:StepStatus.Active}">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource SurfaceContainerLowest}" />
+                                    <Setter Property="Shadow">
+                                        <Setter.Value>
+                                            <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                                    Offset="0,12"
+                                                    Radius="32"
+                                                    Opacity="0.04" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Status}"
+                                             Value="{x:Static models:StepStatus.Completed}">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource SurfaceContainerLowest}" />
+                                    <Setter Property="Shadow">
+                                        <Setter.Value>
+                                            <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                                    Offset="0,12"
+                                                    Radius="32"
+                                                    Opacity="0.04" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Status}"
+                                             Value="{x:Static models:StepStatus.Pending}">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource SurfaceContainerLow}" />
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Grid ColumnDefinitions="32,*" ColumnSpacing="20">
+
+                                <!-- Status Icon -->
+                                <Border WidthRequest="32"
+                                        HeightRequest="32"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 16"
+                                        VerticalOptions="Center">
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Status}"
+                                                     Value="{x:Static models:StepStatus.Completed}">
+                                            <Setter Property="BackgroundColor" Value="#1A005FAA" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Status}"
+                                                     Value="{x:Static models:StepStatus.Active}">
+                                            <Setter Property="BackgroundColor" Value="#1A0078D4" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Border"
+                                                     Binding="{Binding Status}"
+                                                     Value="{x:Static models:StepStatus.Pending}">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceContainerHighest}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+
+                                    <Label HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           FontSize="16"
+                                           TextColor="{StaticResource Primary}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Status}"
+                                                         Value="{x:Static models:StepStatus.Completed}">
+                                                <Setter Property="Text" Value="&#x2713;" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Status}"
+                                                         Value="{x:Static models:StepStatus.Active}">
+                                                <Setter Property="Text" Value="&#x2742;" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Status}"
+                                                         Value="{x:Static models:StepStatus.Pending}">
+                                                <Setter Property="Text" Value="&#x2726;" />
+                                                <Setter Property="TextColor" Value="{StaticResource OnSurfaceVariant}" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Border>
+
+                                <!-- Text -->
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="4"
+                                                     VerticalOptions="Center">
+                                    <Label Text="{Binding Title}"
+                                           FontFamily="PlusJakartaSemiBold"
+                                           FontSize="16"
+                                           TextColor="{StaticResource OnSurface}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Status}"
+                                                         Value="{x:Static models:StepStatus.Active}">
+                                                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                                <Setter Property="FontFamily" Value="PlusJakartaBold" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Status}"
+                                                         Value="{x:Static models:StepStatus.Pending}">
+                                                <Setter Property="TextColor" Value="{StaticResource OnSurfaceVariant}" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Text="{Binding Subtitle}"
+                                           FontFamily="InterRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource OnSurfaceVariant}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <!-- Footer -->
+            <Label Text="POWERED BY MINUTEMIND INTELLIGENCE"
+                   FontFamily="InterMedium"
+                   FontSize="11"
+                   CharacterSpacing="2"
+                   TextColor="{StaticResource OnSurfaceVariant}"
+                   Opacity="0.4"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,48,0,0" />
+
+        </VerticalStackLayout>
+    </Grid>
+
 </ContentPage>

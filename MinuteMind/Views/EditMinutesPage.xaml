@@ -2,10 +2,103 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinuteMind.Views.EditMinutesPage"
-             Title="Edit Minutes"
+             BackgroundColor="{StaticResource Surface}"
+             Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
-        <Label Text="Edit Minutes" Style="{StaticResource HeadlineLarge}" HorizontalTextAlignment="Center" />
-        <Label Text="Coming soon" Style="{StaticResource BodyMedium}" HorizontalTextAlignment="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="64,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Padding="16,0"
+              VerticalOptions="Center"
+              BackgroundColor="{StaticResource Surface}">
+
+            <Border WidthRequest="40"
+                    HeightRequest="40"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="&#x2715;"
+                       FontSize="20"
+                       TextColor="{StaticResource OnSurface}"
+                       Opacity="0.6"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <Label Grid.Column="1"
+                   Text="Edit Minutes"
+                   FontFamily="PlusJakartaBold"
+                   FontSize="24"
+                   TextColor="{StaticResource Primary}"
+                   VerticalOptions="Center"
+                   Margin="12,0,0,0" />
+
+            <Border Grid.Column="2"
+                    BackgroundColor="{StaticResource PrimaryContainer}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="20,10">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveChangesCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="Save"
+                       FontFamily="PlusJakartaBold"
+                       FontSize="14"
+                       TextColor="{StaticResource OnPrimaryContainer}"
+                       VerticalOptions="Center" />
+            </Border>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Padding="24,16,24,32" Spacing="0">
+
+                <Entry Text="{Binding MeetingTitle, Mode=TwoWay}"
+                       FontFamily="PlusJakartaBold"
+                       FontSize="30"
+                       TextColor="{StaticResource OnSurface}"
+                       Placeholder="Untitled Meeting"
+                       PlaceholderColor="{StaticResource OnSurfaceVariant}"
+                       BackgroundColor="Transparent"
+                       Margin="0,0,0,8" />
+
+                <HorizontalStackLayout Spacing="12" Margin="0,0,0,32">
+                    <Border BackgroundColor="#4DB8D3FD"
+                            Padding="8,4"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 4">
+                        <Label Text="AI-REFINED"
+                               FontFamily="InterSemiBold"
+                               FontSize="10"
+                               CharacterSpacing="2"
+                               TextColor="{StaticResource OnSecondaryContainer}" />
+                    </Border>
+                    <Label Text="{Binding MeetingMeta}"
+                           FontFamily="InterMedium"
+                           FontSize="14"
+                           TextColor="{StaticResource OnSurfaceVariant}"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <Editor Text="{Binding MinutesText, Mode=TwoWay}"
+                        FontFamily="InterRegular"
+                        FontSize="18"
+                        TextColor="{StaticResource OnSurfaceVariant}"
+                        BackgroundColor="Transparent"
+                        AutoSize="TextChanges"
+                        MinimumHeightRequest="500"
+                        Placeholder="Your meeting minutes will appear here..."
+                        PlaceholderColor="{StaticResource OutlineVariant}" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
 </ContentPage>

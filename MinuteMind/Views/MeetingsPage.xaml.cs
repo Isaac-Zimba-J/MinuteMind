@@ -9,4 +9,11 @@ public partial class MeetingsPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is MeetingsViewModel vm)
+            vm.LoadMeetingsCommand.Execute(null);
+    }
 }

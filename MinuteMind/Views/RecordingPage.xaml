@@ -2,10 +2,233 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinuteMind.Views.RecordingPage"
-             Title="Record"
-             >
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
-        <Label Text="Recording" Style="{StaticResource HeadlineLarge}" HorizontalTextAlignment="Center" />
-        <Label Text="Coming soon" Style="{StaticResource BodyMedium}" HorizontalTextAlignment="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource Surface}"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True">
+
+    <Grid RowDefinitions="*,Auto" Padding="0">
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 Padding="32,48,32,24"
+                                 Spacing="0">
+
+                <!-- AI Transcription Active Badge -->
+                <Border BackgroundColor="#4DB8D3FD"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="14,6"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,24">
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                        <Image Source="sparkle.png"
+                               HeightRequest="14"
+                               WidthRequest="14"
+                               VerticalOptions="Center" />
+                        <Label Text="AI TRANSCRIPTION ACTIVE"
+                               FontFamily="InterSemiBold"
+                               FontSize="11"
+                               CharacterSpacing="1"
+                               TextColor="{StaticResource OnSecondaryContainer}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Meeting Title -->
+                <Label Text="{Binding MeetingTitle}"
+                       FontFamily="PlusJakartaBold"
+                       FontSize="30"
+                       CharacterSpacing="0"
+                       TextColor="{StaticResource OnSurface}"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,8" />
+
+                <!-- Meta Info -->
+                <Label Text="{Binding StartedAt}"
+                       FontFamily="InterMedium"
+                       FontSize="14"
+                       TextColor="{StaticResource OnSurfaceVariant}"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,48" />
+
+                <!-- Waveform Visualizer -->
+                <HorizontalStackLayout Spacing="6"
+                                       HorizontalOptions="Center"
+                                       HeightRequest="128"
+                                       Margin="0,0,0,64">
+                    <BoxView WidthRequest="6" HeightRequest="32" Color="{StaticResource Primary}" Opacity="0.2" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="48" Color="{StaticResource Primary}" Opacity="0.3" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="80" Color="{StaticResource Primary}" Opacity="0.4" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="96" Color="{StaticResource Primary}" Opacity="0.6" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="128" Color="{StaticResource Primary}" Opacity="1.0" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="64" Color="{StaticResource Primary}" Opacity="0.8" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="112" Color="{StaticResource Primary}" Opacity="1.0" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="48" Color="{StaticResource Primary}" Opacity="0.4" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="80" Color="{StaticResource Primary}" Opacity="0.6" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="32" Color="{StaticResource Primary}" Opacity="0.2" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="56" Color="{StaticResource Primary}" Opacity="0.4" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="96" Color="{StaticResource Primary}" Opacity="0.7" CornerRadius="3" VerticalOptions="Center" />
+                    <BoxView WidthRequest="6" HeightRequest="40" Color="{StaticResource Primary}" Opacity="0.3" CornerRadius="3" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <!-- Timer Display -->
+                <Label Text="{Binding ElapsedTime}"
+                       FontFamily="PlusJakartaBold"
+                       FontSize="72"
+                       CharacterSpacing="-2"
+                       TextColor="{StaticResource OnSurface}"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,64" />
+
+                <!-- Record / Stop Button -->
+                <Border WidthRequest="96"
+                        HeightRequest="96"
+                        BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 48"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,48">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12"
+                                Radius="32"
+                                Opacity="0.06" />
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StopRecordingCommand}" />
+                    </Border.GestureRecognizers>
+                    <!-- Red square = stop icon -->
+                    <Border WidthRequest="32"
+                            HeightRequest="32"
+                            BackgroundColor="{StaticResource Error}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 6"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+                </Border>
+
+                <!-- Pause / Stop Buttons -->
+                <HorizontalStackLayout Spacing="24"
+                                       HorizontalOptions="Center"
+                                       Margin="0,0,0,80">
+
+                    <!-- Pause Button -->
+                    <Border BackgroundColor="{StaticResource SurfaceContainerHigh}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 24"
+                            Padding="24,14"
+                            HeightRequest="48">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TogglePauseCommand}" />
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                            <Label Text="&#x23F8;"
+                                   FontSize="18"
+                                   TextColor="{StaticResource OnSurface}"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding PauseButtonText}"
+                                   FontFamily="PlusJakartaSemiBold"
+                                   FontSize="14"
+                                   TextColor="{StaticResource OnSurface}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <!-- Stop Recording Button -->
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 24"
+                            Padding="32,14"
+                            HeightRequest="48">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
+                                <GradientStop Color="{StaticResource PrimaryContainer}" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource PrimaryBrush}"
+                                    Offset="0,8"
+                                    Radius="24"
+                                    Opacity="0.2" />
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding StopRecordingCommand}" />
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                            <Label Text="&#x23F9;"
+                                   FontSize="18"
+                                   TextColor="{StaticResource OnPrimary}"
+                                   VerticalOptions="Center" />
+                            <Label Text="Stop Recording"
+                                   FontFamily="PlusJakartaBold"
+                                   FontSize="14"
+                                   TextColor="{StaticResource OnPrimary}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </HorizontalStackLayout>
+
+                <!-- Live Insight Card -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="16"
+                        Margin="0,0,0,0">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12"
+                                Radius="32"
+                                Opacity="0.04" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="LIVE INSIGHT"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="10"
+                                   CharacterSpacing="2"
+                                   TextColor="{StaticResource Primary}" />
+                            <!-- Red live dot -->
+                            <Border Grid.Column="1"
+                                    WidthRequest="8"
+                                    HeightRequest="8"
+                                    BackgroundColor="{StaticResource Error}"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 4"
+                                    VerticalOptions="Center" />
+                        </Grid>
+                        <Label Text="{Binding LiveInsight}"
+                               FontFamily="InterRegular"
+                               FontSize="14"
+                               LineHeight="1.5"
+                               TextColor="{StaticResource OnSurface}" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Toast: Capturing from Internal Mic -->
+        <Border Grid.Row="1"
+                BackgroundColor="{StaticResource InverseSurface}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Padding="16,10"
+                HorizontalOptions="Center"
+                Margin="0,0,0,32">
+            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                <Image Source="mic.png"
+                       HeightRequest="14"
+                       WidthRequest="14"
+                       VerticalOptions="Center" />
+                <Label Text="Capturing from Internal Mic"
+                       FontFamily="InterMedium"
+                       FontSize="12"
+                       TextColor="{StaticResource InverseOnSurface}"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Border>
+
+    </Grid>
+
 </ContentPage>

@@ -2,9 +2,217 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinuteMind.Views.SettingsPage"
-             Title="Settings">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
-        <Label Text="Settings" Style="{StaticResource HeadlineLarge}" HorizontalTextAlignment="Center" />
-        <Label Text="Coming soon" Style="{StaticResource BodyMedium}" HorizontalTextAlignment="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource Surface}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="64,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              Padding="24,0"
+              VerticalOptions="Center"
+              BackgroundColor="{StaticResource Surface}">
+            <Label Text="Settings"
+                   FontFamily="PlusJakartaBold"
+                   FontSize="28"
+                   CharacterSpacing="0"
+                   TextColor="{StaticResource OnSurface}" />
+        </Grid>
+
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Padding="24,0,24,32" Spacing="24">
+
+                <!-- Account Section -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="ACCOUNT"
+                           FontFamily="InterSemiBold"
+                           FontSize="11"
+                           CharacterSpacing="2"
+                           TextColor="{StaticResource Primary}"
+                           Margin="0,0,0,12" />
+
+                    <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                            Padding="20"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 16">
+                        <Grid ColumnDefinitions="48,*,Auto" ColumnSpacing="16">
+                            <Border WidthRequest="48" HeightRequest="48"
+                                    BackgroundColor="{StaticResource SecondaryContainer}"
+                                    StrokeThickness="0" StrokeShape="RoundRectangle 24">
+                                <Label Text="U"
+                                       FontFamily="PlusJakartaBold"
+                                       FontSize="20"
+                                       TextColor="{StaticResource OnSecondaryContainer}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="User"
+                                       FontFamily="PlusJakartaSemiBold"
+                                       FontSize="16"
+                                       TextColor="{StaticResource OnSurface}" />
+                                <Label Text="user@email.com"
+                                       FontFamily="InterRegular"
+                                       FontSize="14"
+                                       TextColor="{StaticResource OnSurfaceVariant}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2"
+                                   Text="&#x203A;"
+                                   FontSize="24"
+                                   TextColor="{StaticResource OnSurfaceVariant}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Preferences Section -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="PREFERENCES"
+                           FontFamily="InterSemiBold"
+                           FontSize="11"
+                           CharacterSpacing="2"
+                           TextColor="{StaticResource Primary}"
+                           Margin="0,0,0,12" />
+
+                    <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                            Padding="20"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 16">
+                        <VerticalStackLayout Spacing="0">
+
+                            <!-- Dark Mode -->
+                            <Grid ColumnDefinitions="*,Auto" HeightRequest="56">
+                                <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                                    <Label Text="Dark Mode"
+                                           FontFamily="InterMedium"
+                                           FontSize="16"
+                                           TextColor="{StaticResource OnSurface}" />
+                                    <Label Text="Switch between light and dark themes"
+                                           FontFamily="InterRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource OnSurfaceVariant}" />
+                                </VerticalStackLayout>
+                                <Switch Grid.Column="1"
+                                        IsToggled="{Binding IsDarkMode}"
+                                        OnColor="{StaticResource Primary}"
+                                        VerticalOptions="Center" />
+                            </Grid>
+
+                            <!-- Divider -->
+                            <BoxView HeightRequest="1"
+                                     Color="{StaticResource OutlineVariant}"
+                                     Opacity="0.3"
+                                     Margin="0,8" />
+
+                            <!-- Auto Transcribe -->
+                            <Grid ColumnDefinitions="*,Auto" HeightRequest="56">
+                                <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                                    <Label Text="Auto Transcribe"
+                                           FontFamily="InterMedium"
+                                           FontSize="16"
+                                           TextColor="{StaticResource OnSurface}" />
+                                    <Label Text="Automatically start transcription after recording"
+                                           FontFamily="InterRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource OnSurfaceVariant}" />
+                                </VerticalStackLayout>
+                                <Switch Grid.Column="1"
+                                        IsToggled="{Binding AutoTranscribe}"
+                                        OnColor="{StaticResource Primary}"
+                                        VerticalOptions="Center" />
+                            </Grid>
+
+                            <!-- Divider -->
+                            <BoxView HeightRequest="1"
+                                     Color="{StaticResource OutlineVariant}"
+                                     Opacity="0.3"
+                                     Margin="0,8" />
+
+                            <!-- Language -->
+                            <Grid ColumnDefinitions="*,Auto" HeightRequest="56">
+                                <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                                    <Label Text="Transcription Language"
+                                           FontFamily="InterMedium"
+                                           FontSize="16"
+                                           TextColor="{StaticResource OnSurface}" />
+                                    <Label Text="Language used for speech recognition"
+                                           FontFamily="InterRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource OnSurfaceVariant}" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1"
+                                       Text="{Binding SelectedLanguage}"
+                                       FontFamily="InterMedium"
+                                       FontSize="14"
+                                       TextColor="{StaticResource Primary}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- About Section -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="ABOUT"
+                           FontFamily="InterSemiBold"
+                           FontSize="11"
+                           CharacterSpacing="2"
+                           TextColor="{StaticResource Primary}"
+                           Margin="0,0,0,12" />
+
+                    <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                            Padding="20"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 16">
+                        <VerticalStackLayout Spacing="0">
+                            <Grid ColumnDefinitions="*,Auto" HeightRequest="48">
+                                <Label Text="Version"
+                                       FontFamily="InterMedium"
+                                       FontSize="16"
+                                       TextColor="{StaticResource OnSurface}"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding AppVersion}"
+                                       FontFamily="InterRegular"
+                                       FontSize="14"
+                                       TextColor="{StaticResource OnSurfaceVariant}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                            <BoxView HeightRequest="1"
+                                     Color="{StaticResource OutlineVariant}"
+                                     Opacity="0.3"
+                                     Margin="0,4" />
+
+                            <Grid ColumnDefinitions="*,Auto" HeightRequest="48">
+                                <Label Text="AI Model"
+                                       FontFamily="InterMedium"
+                                       FontSize="16"
+                                       TextColor="{StaticResource OnSurface}"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="Whisper (Local)"
+                                       FontFamily="InterRegular"
+                                       FontSize="14"
+                                       TextColor="{StaticResource OnSurfaceVariant}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Footer -->
+                <Label Text="MinuteMind • Built with Intelligence"
+                       FontFamily="InterMedium"
+                       FontSize="12"
+                       TextColor="{StaticResource OnSurfaceVariant}"
+                       Opacity="0.4"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,24,0,0" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
 </ContentPage>

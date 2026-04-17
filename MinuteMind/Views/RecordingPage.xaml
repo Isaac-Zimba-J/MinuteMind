@@ -123,9 +123,13 @@
                             <TapGestureRecognizer Command="{Binding TogglePauseCommand}" />
                         </Border.GestureRecognizers>
                         <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                            <Label Text="&#x23F8;"
+                            <!-- <Label Text="&#x23F8;"
                                    FontSize="18"
                                    TextColor="{StaticResource OnSurface}"
+                                   VerticalOptions="Center" /> -->
+                            <Image Source="pause.png"
+                                   HeightRequest="18"
+                                   WidthRequest="18"
                                    VerticalOptions="Center" />
                             <Label Text="{Binding PauseButtonText}"
                                    FontFamily="PlusJakartaSemiBold"
@@ -156,9 +160,14 @@
                             <TapGestureRecognizer Command="{Binding StopRecordingCommand}" />
                         </Border.GestureRecognizers>
                         <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                            <Label Text="&#x23F9;"
+                            <!-- <Label Text="&#x23F9;"
                                    FontSize="18"
                                    TextColor="{StaticResource OnPrimary}"
+                                   VerticalOptions="Center" /> -->
+
+                            <Image Source="stop.png"
+                                   HeightRequest="18"
+                                   WidthRequest="18"
                                    VerticalOptions="Center" />
                             <Label Text="Stop Recording"
                                    FontFamily="PlusJakartaBold"
@@ -207,28 +216,6 @@
 
             </VerticalStackLayout>
         </ScrollView>
-
-        <!-- Bottom Toast: Capturing from Internal Mic -->
-        <Border Grid.Row="1"
-                BackgroundColor="{StaticResource InverseSurface}"
-                StrokeThickness="0"
-                StrokeShape="RoundRectangle 20"
-                Padding="16,10"
-                HorizontalOptions="Center"
-                Margin="0,0,0,32">
-            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
-                <Image Source="mic.png"
-                       HeightRequest="14"
-                       WidthRequest="14"
-                       VerticalOptions="Center" />
-                <Label Text="Capturing from Internal Mic"
-                       FontFamily="InterMedium"
-                       FontSize="12"
-                       TextColor="{StaticResource InverseOnSurface}"
-                       VerticalOptions="Center" />
-            </HorizontalStackLayout>
-        </Border>
-
     </Grid>
 
 </ContentPage>

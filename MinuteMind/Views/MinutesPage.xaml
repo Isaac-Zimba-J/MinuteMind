@@ -71,8 +71,12 @@
 
                             <HorizontalStackLayout Spacing="16" Margin="0,8,0,0">
                                 <HorizontalStackLayout Spacing="4">
-                                    <Label Text="&#x1F4C5;"
+                                    <!-- <Label Text="&#x1F4C5;"
                                            FontSize="14"
+                                           VerticalOptions="Center" /> -->
+                                    <Image Source="calendar.png"
+                                           HeightRequest="14"
+                                           WidthRequest="14"
                                            VerticalOptions="Center" />
                                     <Label Text="{Binding MeetingDate}"
                                            FontFamily="InterMedium"
@@ -81,8 +85,12 @@
                                            VerticalOptions="Center" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="4">
-                                    <Label Text="&#x23F1;"
+                                    <!-- <Label Text="&#x23F1;"
                                            FontSize="14"
+                                           VerticalOptions="Center" /> -->
+                                    <Image Source="clock.png"
+                                           HeightRequest="14"
+                                           WidthRequest="14"
                                            VerticalOptions="Center" />
                                     <Label Text="{Binding MeetingDuration}"
                                            FontFamily="InterMedium"
@@ -157,9 +165,12 @@
                     </Border.Shadow>
                     <VerticalStackLayout Spacing="24">
                         <HorizontalStackLayout Spacing="8">
-                            <Label Text="&#x1F465;"
+                            <!-- <Label Text="&#x1F465;"
                                    FontSize="18"
                                    TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" /> -->
+                            <Image Source="people.png"
+                                   HeightRequest="18"                                   WidthRequest="18"
                                    VerticalOptions="Center" />
                             <Label Text="Attendees"
                                    FontFamily="PlusJakartaBold"
@@ -178,12 +189,17 @@
                                                 BackgroundColor="{StaticResource SecondaryContainer}"
                                                 StrokeThickness="0"
                                                 StrokeShape="RoundRectangle 16">
-                                            <Label Text="{Binding ., StringFormat='{0:0}'}"
+                                            <!-- <Label Text="{Binding ., StringFormat='{0:0}'}"
                                                    FontFamily="PlusJakartaBold"
-                                                   FontSize="12"
+                                                   FontSize="10"
                                                    TextColor="{StaticResource OnSecondaryContainer}"
                                                    HorizontalOptions="Center"
-                                                   VerticalOptions="Center" />
+                                                   VerticalOptions="Center" /> -->
+                                                   <Image Source="profile.png"
+                                                          HeightRequest="10"
+                                                          WidthRequest="10"
+                                                          HorizontalOptions="Center"
+                                                          VerticalOptions="Center" />
                                         </Border>
                                         <Label Text="{Binding .}"
                                                FontFamily="InterMedium"
@@ -208,9 +224,13 @@
                     </Border.Shadow>
                     <VerticalStackLayout Spacing="24">
                         <HorizontalStackLayout Spacing="8">
-                            <Label Text="&#x1F4CA;"
-                                   FontSize="18"
-                                   TextColor="{StaticResource Primary}"
+                                <!-- <Label Text="&#x1F4CA;"
+                                    FontSize="18"
+                                    TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" /> -->
+                            <Image Source="chart.png"
+                                   HeightRequest="18"
+                                   WidthRequest="18"
                                    VerticalOptions="Center" />
                             <Label Text="Key Discussion Points"
                                    FontFamily="PlusJakartaBold"
@@ -301,10 +321,14 @@
                         StrokeShape="RoundRectangle 16">
                     <VerticalStackLayout Spacing="24">
                         <HorizontalStackLayout Spacing="8">
-                            <Label Text="&#x2705;"
+                            <!-- <Label Text="&#x2705;"
                                    FontSize="18"
                                    TextColor="{StaticResource Primary}"
-                                   VerticalOptions="Center" />
+                                   VerticalOptions="Center" /> -->
+                            <Image Source="check.png"
+                                   HeightRequest="18"                                 
+                                   WidthRequest="18"
+                                   VerticalOptions="Center"/>
                             <Label Text="Action Items"
                                    FontFamily="PlusJakartaBold"
                                    FontSize="18"

@@ -3,12 +3,12 @@
     x:Class="MinuteMind.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MinuteMind"
+    xmlns:views="clr-namespace:MinuteMind.Views"
     Title="MinuteMind">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="MinuteMind"
+        ContentTemplate="{DataTemplate views:Dashboard}"
+        Route="Dashboard" />
 
 </Shell>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MinuteMind - Live Recording</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#faf9f8",
+              "primary": "#005faa",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-container-high": "#e9e8e7",
+              "surface-container-highest": "#e3e2e1",
+              "primary-fixed-dim": "#a3c9ff",
+              "on-secondary-container": "#405b7f",
+              "on-background": "#1a1c1c",
+              "on-surface-variant": "#404752",
+              "inverse-on-surface": "#f1f0ef",
+              "inverse-primary": "#a3c9ff",
+              "secondary-fixed-dim": "#adc8f2",
+              "outline": "#717783",
+              "on-primary-fixed": "#001c39",
+              "surface-container-low": "#f4f3f2",
+              "on-primary": "#ffffff",
+              "surface-variant": "#e3e2e1",
+              "on-tertiary-fixed": "#311300",
+              "on-error-container": "#93000a",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "tertiary": "#974700",
+              "error-container": "#ffdad6",
+              "surface-tint": "#0060ab",
+              "inverse-surface": "#2f3130",
+              "surface-dim": "#dadad9",
+              "secondary-fixed": "#d3e3ff",
+              "on-secondary-fixed-variant": "#2d486b",
+              "primary-fixed": "#d3e3ff",
+              "tertiary-fixed-dim": "#ffb689",
+              "on-tertiary-fixed-variant": "#743500",
+              "secondary": "#456084",
+              "on-primary-container": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "secondary-container": "#b8d3fd",
+              "surface-container": "#efeeed",
+              "on-tertiary-container": "#ffffff",
+              "on-primary-fixed-variant": "#004883",
+              "outline-variant": "#c0c7d4",
+              "tertiary-container": "#bc5b00",
+              "background": "#faf9f8",
+              "primary-container": "#0078d4",
+              "surface": "#faf9f8",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed": "#ffdbc8",
+              "on-secondary-fixed": "#001c39"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .recording-pulse {
+        box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.4);
+        animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      @keyframes pulse-ring {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(186, 26, 26, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(186, 26, 26, 0); }
+      }
+      .ai-blur {
+        filter: blur(40px);
+        background: radial-gradient(circle, rgba(0, 95, 170, 0.15) 0%, rgba(250, 249, 248, 0) 70%);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#FAF9F8] dark:bg-[#1A1C1C]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#005FAA] dark:text-[#0078D4]">menu</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-extrabold tracking-tighter text-[#005FAA] dark:text-[#0078D4] text-2xl">MinuteMind</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="minimalist user avatar placeholder with soft neutral background colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbjS5BBGsAXIsqEJdfIhtpKRz4PRel0Kc7L0jL4bVO-gL3cFtjM_0I7do3HkfHsUh7HU7OiFUiAYOs9TH5L67NrPRVWX6n4QdSa8s7qKKeTv7-MNQwERn95jjl9d7wdUHhNZcZ5iuaKGfb_dO2Rp65XTBYxTFEC8S7K1tsva6iJ_wgmRWx1xBtEtyge7OM9-WRJfuYvqZxlRMVgz6krtNxrjVkeaz5RpCmA4-F08Iasd0eyzwiD9VxOKrix83TOYuJLnKJZGmxtSQ"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center px-8 relative mt-16 pb-32">
+<!-- AI Intelligence Pulse Backdrop -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="ai-blur w-[500px] h-[500px] rounded-full"></div>
+</div>
+<!-- Meta Header Section -->
+<div class="w-full max-w-lg mb-12 text-center z-10">
+<div class="inline-flex items-center px-3 py-1 bg-secondary-container/30 text-on-secondary-container rounded-full mb-6">
+<span class="material-symbols-outlined text-sm mr-2" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label text-[11px] font-semibold tracking-wider uppercase">AI Transcription Active</span>
+</div>
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-2">Strategy Alignment Meeting</h2>
+<p class="text-on-surface-variant text-sm font-medium">Started at 10:30 AM • 4 Participants Detected</p>
+</div>
+<!-- Central Waveform (Visualizer Placeholder) -->
+<div class="w-full max-w-3xl h-32 flex items-center justify-center gap-1.5 mb-16 z-10">
+<div class="w-1.5 h-8 bg-primary/20 rounded-full"></div>
+<div class="w-1.5 h-12 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-20 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-24 bg-primary/60 rounded-full"></div>
+<div class="w-1.5 h-32 bg-primary rounded-full"></div>
+<div class="w-1.5 h-16 bg-primary/80 rounded-full"></div>
+<div class="w-1.5 h-28 bg-primary rounded-full"></div>
+<div class="w-1.5 h-12 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-20 bg-primary/60 rounded-full"></div>
+<div class="w-1.5 h-8 bg-primary/20 rounded-full"></div>
+<div class="w-1.5 h-14 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-24 bg-primary/70 rounded-full"></div>
+<div class="w-1.5 h-10 bg-primary/30 rounded-full"></div>
+</div>
+<!-- Timer Display -->
+<div class="mb-16 z-10">
+<span class="font-headline text-7xl font-extrabold tracking-tighter text-on-surface tabular-nums">00:15:24</span>
+</div>
+<!-- Recording Interface Actions -->
+<div class="flex flex-col items-center gap-12 z-10">
+<!-- Recording Button -->
+<button class="relative group">
+<div class="recording-pulse absolute inset-0 rounded-full bg-error/10"></div>
+<div class="relative w-24 h-24 bg-surface-container-lowest rounded-full shadow-[0px_12px_32px_rgba(26,28,28,0.06)] flex items-center justify-center transition-transform active:scale-90 duration-300">
+<div class="w-8 h-8 bg-error rounded-sm"></div>
+</div>
+</button>
+<!-- Bottom Action Cluster -->
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest transition-colors rounded-full text-on-surface font-headline font-semibold text-sm">
+<span class="material-symbols-outlined text-lg">pause_circle</span>
+                    Pause
+                </button>
+<button class="flex items-center gap-2 px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-full font-headline font-bold text-sm shadow-[0px_8px_24px_rgba(0,95,170,0.2)] transition-transform active:scale-95">
+<span class="material-symbols-outlined text-lg">stop_circle</span>
+                    Stop Recording
+                </button>
+</div>
+</div>
+<!-- Live Insight Preview (Micro-Bento style) -->
+<div class="mt-20 w-full max-w-md">
+<div class="bg-surface-container-lowest/80 backdrop-blur-md p-4 rounded-xl border border-outline-variant/10 shadow-[0px_12px_32px_rgba(26,28,28,0.04)]">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label text-[10px] font-bold uppercase tracking-widest text-primary">Live Insight</span>
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+</div>
+<p class="text-on-surface text-sm leading-relaxed">
+                    "...the quarterly projections for the APAC region seem to be 15% higher than our initial estimates due to the new partnership..."
+                </p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Suppressed context check: This is a Task-Focused screen) -->
+<!-- We skip the global navigation to keep focus on the recording action -->
+<!-- Toast / Tooltip Overlay -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+<div class="px-4 py-2 bg-inverse-surface text-inverse-on-surface rounded-full flex items-center gap-3 text-xs font-medium shadow-lg">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">mic</span>
+            Capturing from Internal Mic
+        </div>
+</div>
+</body></html>

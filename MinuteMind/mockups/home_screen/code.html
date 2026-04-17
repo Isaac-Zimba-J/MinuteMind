@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#faf9f8",
+                        "primary": "#005faa",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e9e8e7",
+                        "surface-container-highest": "#e3e2e1",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "on-secondary-container": "#405b7f",
+                        "on-background": "#1a1c1c",
+                        "on-surface-variant": "#404752",
+                        "inverse-on-surface": "#f1f0ef",
+                        "inverse-primary": "#a3c9ff",
+                        "secondary-fixed-dim": "#adc8f2",
+                        "outline": "#717783",
+                        "on-primary-fixed": "#001c39",
+                        "surface-container-low": "#f4f3f2",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e3e2e1",
+                        "on-tertiary-fixed": "#311300",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#974700",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#0060ab",
+                        "inverse-surface": "#2f3130",
+                        "surface-dim": "#dadad9",
+                        "secondary-fixed": "#d3e3ff",
+                        "on-secondary-fixed-variant": "#2d486b",
+                        "primary-fixed": "#d3e3ff",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "secondary": "#456084",
+                        "on-primary-container": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "secondary-container": "#b8d3fd",
+                        "surface-container": "#efeeed",
+                        "on-tertiary-container": "#ffffff",
+                        "on-primary-fixed-variant": "#004883",
+                        "outline-variant": "#c0c7d4",
+                        "tertiary-container": "#bc5b00",
+                        "background": "#faf9f8",
+                        "primary-container": "#0078d4",
+                        "surface": "#faf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbc8",
+                        "on-secondary-fixed": "#001c39"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf9f8;
+            color: #1a1c1c;
+        }
+        .editorial-shadow {
+            box-shadow: 0px 12px 32px rgba(26, 28, 28, 0.04);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#FAF9F8] dark:bg-[#1A1C1C]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="menu">menu</span>
+<h1 class="text-[#005FAA] dark:text-[#0078D4] font-['Plus_Jakarta_Sans'] font-extrabold tracking-tighter text-2xl">MinuteMind</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a person with a warm smile, soft studio lighting, clean minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBakVk7FSo2cS9bAWn7R3z8e7_d49omY9PvqK_cmuvFBPJ-ZULMSKBP2WEggMGqbrtvpqFyKBfGAInNsZuq0McX0Yyt26eaf-ecQgpvDmWZD2mBJsrcB6SJHNt_8vQPyUGFj0H-LjTVop7_TEY-iOyr9phPrOGh5gpZkObCKphc3mZTFABQ0M2oIxG5rc7Got0Ol9X1c90N5U-yJWZK9C_g83ZI2lL85Vyb7q8OLGZXLH34_C5kX__m1vj8yM0YCmPxSQkJeQy3bHA"/>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto">
+<!-- Greeting & Vision -->
+<section class="mb-10">
+<h2 class="font-headline font-extrabold text-4xl tracking-tight text-on-surface mb-2">Capture Clarity.</h2>
+<p class="font-body text-on-surface-variant leading-relaxed">Your intelligence architect is ready to transcribe your next big idea.</p>
+</section>
+<!-- Quick Actions Bento Grid -->
+<section class="grid grid-cols-2 gap-4 mb-12">
+<!-- Record Card -->
+<div class="col-span-1 bg-gradient-to-br from-primary to-primary-container p-6 rounded-[2rem] text-white flex flex-col justify-between aspect-square active:scale-95 transition-transform duration-200 cursor-pointer shadow-lg shadow-primary/10">
+<div class="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-md">
+<span class="material-symbols-outlined" data-icon="mic_none">mic_none</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight">Record Meeting</h3>
+<p class="text-white/70 text-sm mt-1">Live transcription</p>
+</div>
+</div>
+<!-- Upload Card -->
+<div class="col-span-1 bg-surface-container-lowest p-6 rounded-[2rem] text-on-surface flex flex-col justify-between aspect-square active:scale-95 transition-transform duration-200 cursor-pointer editorial-shadow">
+<div class="bg-secondary-container/30 w-12 h-12 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="upload_file">upload_file</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight">Upload Audio</h3>
+<p class="text-on-surface-variant text-sm mt-1">MP3, WAV, M4A</p>
+</div>
+</div>
+</section>
+<!-- Recent Meetings -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-headline font-bold text-xl tracking-tight text-on-surface">Recent Meetings</h2>
+<span class="font-label text-xs uppercase tracking-widest text-primary font-semibold cursor-pointer">View All</span>
+</div>
+<div class="space-y-4">
+<!-- Meeting Item 1 -->
+<div class="group bg-surface-container-lowest p-5 rounded-[1.5rem] editorial-shadow flex items-center gap-4 transition-all hover:bg-surface-container-low cursor-pointer">
+<div class="w-14 h-14 bg-surface-container rounded-2xl flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="description">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-headline font-semibold text-on-surface truncate">Product Sync</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body text-xs text-on-surface-variant">Oct 24, 2026</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="bg-secondary-container/50 text-on-secondary-container px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">Minutes Ready</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Meeting Item 2 -->
+<div class="group bg-surface-container-lowest p-5 rounded-[1.5rem] editorial-shadow flex items-center gap-4 transition-all hover:bg-surface-container-low cursor-pointer">
+<div class="w-14 h-14 bg-surface-container rounded-2xl flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="forum">forum</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-headline font-semibold text-on-surface truncate">Client Kickoff</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body text-xs text-on-surface-variant">Oct 23, 2026</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">Transcribed</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Meeting Item 3 -->
+<div class="group bg-surface-container-lowest p-5 rounded-[1.5rem] editorial-shadow flex items-center gap-4 transition-all hover:bg-surface-container-low cursor-pointer">
+<div class="w-14 h-14 bg-surface-container rounded-2xl flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="psychology">psychology</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-headline font-semibold text-on-surface truncate">Brainstorming Session</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body text-xs text-on-surface-variant">Oct 21, 2026</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="bg-secondary-container/50 text-on-secondary-container px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">Minutes Ready</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- AI Pulse Indicator (Decorative) -->
+<div class="mt-12 flex flex-col items-center gap-4 opacity-40">
+<div class="relative flex items-center justify-center">
+<div class="absolute w-12 h-12 bg-surface-tint blur-xl rounded-full"></div>
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<p class="text-xs font-label uppercase tracking-widest text-center">Intelligent Analysis Active</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-[#1A1C1C]/80 backdrop-blur-xl border-t border-[#1A1C1C]/5 dark:border-[#FAF9F8]/5 shadow-[0px_-12px_32px_rgba(26,28,28,0.04)] rounded-t-[2rem]">
+<!-- Meetings - ACTIVE -->
+<div class="flex flex-col items-center justify-center text-[#0078D4] dark:text-[#005FAA] bg-[#0078D4]/10 rounded-full px-4 py-1 active:scale-90 transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="home_storage" style="font-variation-settings: 'FILL' 1;">home_storage</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">Meetings</span>
+</div>
+<!-- Record -->
+<div class="flex flex-col items-center justify-center text-[#1A1C1C]/40 dark:text-[#FAF9F8]/40 hover:text-[#005FAA] dark:hover:text-[#0078D4] active:scale-90 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="mic_none">mic_none</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">Record</span>
+</div>
+<!-- Search -->
+<div class="flex flex-col items-center justify-center text-[#1A1C1C]/40 dark:text-[#FAF9F8]/40 hover:text-[#005FAA] dark:hover:text-[#0078D4] active:scale-90 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">Search</span>
+</div>
+<!-- Settings -->
+<div class="flex flex-col items-center justify-center text-[#1A1C1C]/40 dark:text-[#FAF9F8]/40 hover:text-[#005FAA] dark:hover:text-[#0078D4] active:scale-90 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">Settings</span>
+</div>
+</nav>
+</body></html>

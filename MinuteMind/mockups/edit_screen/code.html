@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MinuteMind | Edit Minutes</title>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#faf9f8",
+              "primary": "#005faa",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-container-high": "#e9e8e7",
+              "surface-container-highest": "#e3e2e1",
+              "primary-fixed-dim": "#a3c9ff",
+              "on-secondary-container": "#405b7f",
+              "on-background": "#1a1c1c",
+              "on-surface-variant": "#404752",
+              "inverse-on-surface": "#f1f0ef",
+              "inverse-primary": "#a3c9ff",
+              "secondary-fixed-dim": "#adc8f2",
+              "outline": "#717783",
+              "on-primary-fixed": "#001c39",
+              "surface-container-low": "#f4f3f2",
+              "on-primary": "#ffffff",
+              "surface-variant": "#e3e2e1",
+              "on-tertiary-fixed": "#311300",
+              "on-error-container": "#93000a",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "tertiary": "#974700",
+              "error-container": "#ffdad6",
+              "surface-tint": "#0060ab",
+              "inverse-surface": "#2f3130",
+              "surface-dim": "#dadad9",
+              "secondary-fixed": "#d3e3ff",
+              "on-secondary-fixed-variant": "#2d486b",
+              "primary-fixed": "#d3e3ff",
+              "tertiary-fixed-dim": "#ffb689",
+              "on-tertiary-fixed-variant": "#743500",
+              "secondary": "#456084",
+              "on-primary-container": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "secondary-container": "#b8d3fd",
+              "surface-container": "#efeeed",
+              "on-tertiary-container": "#ffffff",
+              "on-primary-fixed-variant": "#004883",
+              "outline-variant": "#c0c7d4",
+              "tertiary-container": "#bc5b00",
+              "background": "#faf9f8",
+              "primary-container": "#0078d4",
+              "surface": "#faf9f8",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed": "#ffdbc8",
+              "on-secondary-fixed": "#001c39"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        -webkit-tap-highlight-color: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e3e2e1;
+        border-radius: 10px;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar Section (Based on Shared Components JSON) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#FAF9F8] dark:bg-[#1A1C1C]">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#F4F3F2] dark:hover:bg-[#2A2C2C] transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#1A1C1C]/60 dark:text-[#FAF9F8]/60">close</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-2xl text-[#005FAA] dark:text-[#0078D4]">Edit Minutes</h1>
+</div>
+<button class="bg-primary-container text-on-primary-container px-5 py-2 rounded-full font-headline text-sm font-bold tracking-tight hover:opacity-90 active:scale-95 transition-all">
+            Save Changes
+        </button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-24 min-h-screen px-6 max-w-3xl mx-auto">
+<!-- Metadata Section (Subtle Editorial Style) -->
+<div class="mb-8 mt-4">
+<input class="w-full bg-transparent border-none p-0 font-headline text-3xl font-extrabold tracking-tight text-on-surface focus:ring-0 placeholder-on-surface-variant/30" placeholder="Untitled Meeting" type="text" value="Product Strategy Sync: Q3 Roadmap"/>
+<div class="flex items-center gap-3 mt-4">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-sm">AI-Refined</span>
+<span class="text-on-surface-variant text-sm font-medium">October 24, 2023 • 14:00</span>
+</div>
+</div>
+<!-- Rich Text Editor Area -->
+<section class="relative">
+<!-- Focus Area / Text Area -->
+<div class="w-full min-h-[530px] text-lg leading-relaxed text-on-surface-variant outline-none space-y-6" contenteditable="true">
+<p>The primary focus of today's meeting was to finalize the architectural shift towards a <strong>Decentralized Data Model</strong>. Sarah presented the preliminary findings from the performance audit, highlighting a 14% latency reduction in the edge-caching prototype.</p>
+<h3 class="font-headline text-xl text-on-surface font-bold pt-4">Key Decisions</h3>
+<ul class="list-disc pl-5 space-y-2">
+<li>Migrate all legacy CRM metadata to the new schema by the end of November.</li>
+<li>The engineering team will adopt <em>Rust</em> for the core indexing services to ensure memory safety.</li>
+<li>Design hand-off for the new dashboard is scheduled for next Tuesday.</li>
+</ul>
+<h3 class="font-headline text-xl text-on-surface font-bold pt-4">Action Items</h3>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p><span class="font-semibold text-on-surface">@Marcus</span> to draft the security protocol documentation.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant text-xl">radio_button_unchecked</span>
+<p><span class="font-semibold text-on-surface">@Elena</span> to coordinate with the DevOps team for the load testing window.</p>
+</div>
+</div>
+<p class="pt-4">Further discussion was held regarding the user onboarding flow. The consensus is that we need a more "editorial" feel for the summary screens, prioritizing clarity over density. This aligns with our <em>Digital Architect</em> brand vision.</p>
+<p class="text-on-surface-variant/40 italic">End of minutes.</p>
+</div>
+</section>
+</main>
+<!-- Contextual Toolbar (The Fixed Formatting Bar above Virtual Keyboard space) -->
+<div class="fixed bottom-0 left-0 w-full bg-white/80 dark:bg-[#1A1C1C]/80 backdrop-blur-xl border-t border-outline-variant/15 z-40 px-4 py-3">
+<div class="max-w-3xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">format_bold</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">format_italic</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">format_underlined</span>
+</button>
+<div class="w-px h-6 bg-outline-variant/30 mx-1"></div>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">format_list_bulleted</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">format_list_numbered</span>
+</button>
+<div class="w-px h-6 bg-outline-variant/30 mx-1"></div>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">format_quote</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">link</span>
+</button>
+</div>
+<!-- AI Assist Floating Action -->
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant/20 shadow-sm px-4 py-2 rounded-full group hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">magic_button</span>
+<span class="text-xs font-bold tracking-tight text-on-surface-variant group-hover:text-primary transition-colors">AI Polish</span>
+</button>
+</div>
+<!-- Safety padding for iOS home indicator -->
+<div class="h-6"></div>
+</div>
+<!-- Background Decoration: Subtle AI Pulse (Signature Element) -->
+<div class="fixed top-1/4 -right-24 w-64 h-64 bg-surface-tint opacity-[0.03] blur-[100px] pointer-events-none rounded-full"></div>
+<div class="fixed bottom-1/4 -left-24 w-80 h-80 bg-primary opacity-[0.03] blur-[120px] pointer-events-none rounded-full"></div>
+</body></html>

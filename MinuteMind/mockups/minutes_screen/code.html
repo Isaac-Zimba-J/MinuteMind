@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#faf9f8",
+              "primary": "#005faa",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-container-high": "#e9e8e7",
+              "surface-container-highest": "#e3e2e1",
+              "primary-fixed-dim": "#a3c9ff",
+              "on-secondary-container": "#405b7f",
+              "on-background": "#1a1c1c",
+              "on-surface-variant": "#404752",
+              "inverse-on-surface": "#f1f0ef",
+              "inverse-primary": "#a3c9ff",
+              "secondary-fixed-dim": "#adc8f2",
+              "outline": "#717783",
+              "on-primary-fixed": "#001c39",
+              "surface-container-low": "#f4f3f2",
+              "on-primary": "#ffffff",
+              "surface-variant": "#e3e2e1",
+              "on-tertiary-fixed": "#311300",
+              "on-error-container": "#93000a",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "tertiary": "#974700",
+              "error-container": "#ffdad6",
+              "surface-tint": "#0060ab",
+              "inverse-surface": "#2f3130",
+              "surface-dim": "#dadad9",
+              "secondary-fixed": "#d3e3ff",
+              "on-secondary-fixed-variant": "#2d486b",
+              "primary-fixed": "#d3e3ff",
+              "tertiary-fixed-dim": "#ffb689",
+              "on-tertiary-fixed-variant": "#743500",
+              "secondary": "#456084",
+              "on-primary-container": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "secondary-container": "#b8d3fd",
+              "surface-container": "#efeeed",
+              "on-tertiary-container": "#ffffff",
+              "on-primary-fixed-variant": "#004883",
+              "outline-variant": "#c0c7d4",
+              "tertiary-container": "#bc5b00",
+              "background": "#faf9f8",
+              "primary-container": "#0078d4",
+              "surface": "#faf9f8",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed": "#ffdbc8",
+              "on-secondary-fixed": "#001c39"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#FAF9F8] dark:bg-[#1A1C1C]">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-[#F4F3F2] dark:hover:bg-[#2A2C2C] transition-colors active:scale-95 duration-200 rounded-full">
+<span class="material-symbols-outlined text-[#1A1C1C]/60 dark:text-[#FAF9F8]/60">menu</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-2xl text-[#1A1C1C] dark:text-[#FAF9F8]">Meeting Minutes</h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border-2 border-surface-container">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man in a clean office environment with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAefpiShb2RQX4WpdiT_HcabmFnMwVJjCBOYzqrJHMQ9QzpxI_-5EB7lYqjvdkYK0YWeieQTySMEZMiAs9aeaKqIkpo2O1l2ybGpcyVRMdG-iGFxGxS6TvHFjI_8pGi_Fn_AS1hUo4NlXIPZW5D9xNpNJx7HO4sPipudcyQ-VX3XNkO1eKiiWisonbCakiRkUZb4ctNzJIVxQgBUoHfmNPrfox1P0aoLQbQ5i-qYLr0ZgIGE6IAvGo9MixcnBvfrIRm7IqLuceQu8M"/>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-5xl mx-auto space-y-8">
+<!-- Hero Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-l-4 border-primary pl-6 py-2">
+<div>
+<p class="text-label-sm font-label uppercase tracking-widest text-on-surface-variant opacity-70 mb-2">Internal Sync</p>
+<h2 class="text-4xl md:text-5xl font-headline font-extrabold tracking-tighter text-on-surface leading-tight">Product Sync</h2>
+<p class="mt-4 flex items-center gap-4 text-on-surface-variant font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_today</span> Oct 24, 2023</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 45 mins</span>
+</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 rounded-full border border-outline-variant font-headline font-semibold text-primary hover:bg-surface-container-low transition-colors active:scale-95">
+                    Edit Minutes
+                </button>
+<button class="px-6 py-3 rounded-full bg-gradient-to-br from-primary to-primary-container text-white font-headline font-semibold shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export to PDF
+                </button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Attendees Card -->
+<div class="md:col-span-4 bg-surface-container-lowest p-8 rounded-xl shadow-[0px_12px_32px_rgba(26,28,28,0.04)]">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">group</span>
+<h3 class="text-lg font-headline font-bold">Attendees</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-secondary-container">J</div>
+<span class="font-medium">John Doe</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-xs font-bold text-on-tertiary-fixed">M</div>
+<span class="font-medium">Mary Smith</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-xs font-bold text-on-primary-fixed">A</div>
+<span class="font-medium">Alex Rivera</span>
+</div>
+</div>
+</div>
+<!-- Key Discussion Points -->
+<div class="md:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-[0px_12px_32px_rgba(26,28,28,0.04)] relative overflow-hidden">
+<!-- AI Pulse Decor -->
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-surface-tint opacity-5 blur-[64px] rounded-full"></div>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="text-lg font-headline font-bold">Key Discussion Points</h3>
+</div>
+<ul class="space-y-4 relative z-10">
+<li class="flex gap-4">
+<div class="mt-2 w-1.5 h-1.5 rounded-full bg-primary shrink-0"></div>
+<p class="text-on-surface-variant leading-relaxed">Review of the Q4 roadmap and alignment on technical debt prioritization for the upcoming sprint cycles.</p>
+</li>
+<li class="flex gap-4">
+<div class="mt-2 w-1.5 h-1.5 rounded-full bg-primary shrink-0"></div>
+<p class="text-on-surface-variant leading-relaxed">Detailed analysis of the current conversion funnel drop-off at the payment gateway stage.</p>
+</li>
+<li class="flex gap-4">
+<div class="mt-2 w-1.5 h-1.5 rounded-full bg-primary shrink-0"></div>
+<p class="text-on-surface-variant leading-relaxed">Initial brainstorming for the 2024 mobile redesign concept, focusing on accessibility and speed.</p>
+</li>
+</ul>
+</div>
+<!-- Decisions Card (Bolded) -->
+<div class="md:col-span-12 bg-primary text-white p-10 rounded-xl shadow-[0px_12px_32px_rgba(0,95,170,0.15)]">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<h3 class="text-xl font-headline font-bold tracking-tight">Decisions</h3>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="p-6 bg-white/10 rounded-lg backdrop-blur-sm border border-white/10">
+<p class="text-primary-fixed-dim text-xs font-label uppercase tracking-widest mb-2">Technical</p>
+<p class="text-lg font-bold leading-snug italic">"Approved the shift to a micro-services architecture for the checkout flow by Q1."</p>
+</div>
+<div class="p-6 bg-white/10 rounded-lg backdrop-blur-sm border border-white/10">
+<p class="text-primary-fixed-dim text-xs font-label uppercase tracking-widest mb-2">Budgeting</p>
+<p class="text-lg font-bold leading-snug italic">"Allocated 15% of engineering capacity to address high-priority security vulnerabilities."</p>
+</div>
+</div>
+</div>
+<!-- Action Items (Checklist) -->
+<div class="md:col-span-12 bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-primary">fact_check</span>
+<h3 class="text-lg font-headline font-bold">Action Items</h3>
+</div>
+<div class="grid md:grid-cols-2 gap-4">
+<label class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg cursor-pointer hover:bg-white transition-colors border border-transparent hover:border-outline-variant/20">
+<input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-medium text-on-surface">Finalize the architecture diagram</p>
+<p class="text-xs text-on-surface-variant">Assigned to: John • Due Oct 27</p>
+</div>
+</label>
+<label class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg cursor-pointer hover:bg-white transition-colors border border-transparent hover:border-outline-variant/20">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-medium text-on-surface line-through opacity-50">Schedule follow-up with DevOps</p>
+<p class="text-xs text-on-surface-variant">Assigned to: Mary • Completed</p>
+</div>
+</label>
+<label class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg cursor-pointer hover:bg-white transition-colors border border-transparent hover:border-outline-variant/20">
+<input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-medium text-on-surface">Update Jira board with new priorities</p>
+<p class="text-xs text-on-surface-variant">Assigned to: Alex • Due Tomorrow</p>
+</div>
+</label>
+<label class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg cursor-pointer hover:bg-white transition-colors border border-transparent hover:border-outline-variant/20">
+<input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-medium text-on-surface">Prepare Q4 roadmap presentation</p>
+<p class="text-xs text-on-surface-variant">Assigned to: Alex • Due Friday</p>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Intelligent Summary Tag -->
+<div class="flex justify-center pt-8 pb-12">
+<div class="flex items-center gap-2 px-4 py-2 bg-secondary-container/30 rounded-full border border-secondary-container/50">
+<span class="material-symbols-outlined text-secondary text-sm">auto_awesome</span>
+<span class="text-[11px] font-label font-semibold uppercase tracking-widest text-secondary">AI-Generated Intelligence Layer</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-[#1A1C1C]/80 backdrop-blur-xl border-t border-[#1A1C1C]/5 dark:border-[#FAF9F8]/5 shadow-[0px_-12px_32px_rgba(26,28,28,0.04)]">
+<div class="flex flex-col items-center justify-center text-[#0078D4] dark:text-[#005FAA] bg-[#0078D4]/10 rounded-full px-4 py-1 active:scale-90 transition-transform duration-300">
+<span class="material-symbols-outlined">home_storage</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Meetings</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1A1C1C]/40 dark:text-[#FAF9F8]/40 hover:text-[#005FAA] dark:hover:text-[#0078D4] active:scale-90 transition-transform duration-300">
+<span class="material-symbols-outlined">mic_none</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Record</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1A1C1C]/40 dark:text-[#FAF9F8]/40 hover:text-[#005FAA] dark:hover:text-[#0078D4] active:scale-90 transition-transform duration-300">
+<span class="material-symbols-outlined">search</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1A1C1C]/40 dark:text-[#FAF9F8]/40 hover:text-[#005FAA] dark:hover:text-[#0078D4] active:scale-90 transition-transform duration-300">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Settings</span>
+</div>
+</nav>
+</body></html>

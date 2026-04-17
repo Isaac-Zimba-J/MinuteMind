@@ -4,7 +4,7 @@
 
 MinuteMind is a .NET MAUI mobile app (Android + iOS) that lets users record or upload meeting audio, view AI-generated transcripts and structured meeting minutes, edit them, and export as PDF.
 
-**Project goal**: Polished, production-grade UI with real audio recording and local SQLite storage. AI transcription and minutes generation are stubbed behind interfaces for future integration.
+**Project goal**: Polished, production-grade UI with real audio recording, local on-device transcription via a bundled ML model, and local SQLite storage. Minutes generation is stubbed behind an interface for future integration.
 
 **Approach**: Pure MAUI controls + custom XAML styles (Approach A). WebView used only for the rich text editor on the Edit Minutes screen. CommunityToolkit.Mvvm for MVVM, sqlite-net-pcl for persistence, Syncfusion for PDF export, Plugin.Maui.Audio for recording.
 
@@ -238,9 +238,9 @@ All routes registered in `AppShell.xaml.cs` via `Routing.RegisterRoute`:
 **ViewModel**: `ProcessingViewModel`
 - `Steps`: ObservableCollection<ProcessingStep> (Title, Subtitle, Status enum: Completed/Active/Pending)
 - `CurrentStepIndex`: int
-- Auto-advances: Step 1 (2s) → Step 2 (3s) → Step 3 (2s) → auto-navigate to TranscriptPage
+- Auto-advances: Step 1 (save audio file) → Step 2 (real local transcription via model) → Step 3 (2s mock delay) → auto-navigate to TranscriptPage
 - Receives `audioFilePath` as navigation parameter
-- Calls `ITranscriptionService.TranscribeAsync()` then `IMinutesGeneratorService.GenerateAsync()` (both mocked)
+- Calls `ITranscriptionService.TranscribeAsync()` (real local inference) then `IMinutesGeneratorService.GenerateAsync()` (mocked)
 - Saves meeting to SQLite via `IMeetingRepository`
 
 ### 4.4 Transcript Page
@@ -474,7 +474,7 @@ public class MinuteMindDatabase
 | Interface | Methods | Notes |
 |-----------|---------|-------|
 | `IAudioRecorderService` | `StartAsync()`, `PauseAsync()`, `ResumeAsync()`, `StopAsync() → string` | Returns audio file path. Uses Plugin.Maui.Audio. |
-| `ITranscriptionService` | `TranscribeAsync(string audioPath) → List<TranscriptSegment>` | Mock: 3s delay, returns 4 sample segments + 1 AI insight break |
+| `ITranscriptionService` | `TranscribeAsync(string audioPath) → List<TranscriptSegment>` | Real: loads ML model from Resources/Raw/, runs local on-device inference to transcribe audio |
 | `IMinutesGeneratorService` | `GenerateAsync(List<TranscriptSegment>) → MeetingMinutes` | Mock: 2s delay, returns sample structured minutes |
 | `IMeetingRepository` | `GetAllAsync()`, `GetRecentAsync(int count)`, `GetByIdAsync(int)`, `SaveAsync(Meeting)`, `DeleteAsync(Meeting)` | SQLite CRUD via MinuteMindDatabase |
 | `IPdfExportService` | `ExportAsync(Meeting) → string` | Returns PDF file path. Uses Syncfusion. |
@@ -490,7 +490,7 @@ Singleton: MinuteMindDatabase
 Singleton: IMeetingRepository → MeetingRepository
 Singleton: INavigationService → NavigationService
 Singleton: IAudioRecorderService → AudioRecorderService
-Transient: ITranscriptionService → MockTranscriptionService
+Singleton: ITranscriptionService → LocalTranscriptionService
 Transient: IMinutesGeneratorService → MockMinutesGeneratorService
 Transient: IPdfExportService → PdfExportService
 
@@ -531,13 +531,46 @@ Already in .csproj (keep):
 
 To add:
 - `Plugin.Maui.Audio` — cross-platform audio recording (Android + iOS)
+- `Whisper.net` (or equivalent ONNX-based speech-to-text library) — local on-device transcription runtime
 
 To remove (not needed for v1):
 - `System.IdentityModel.Tokens.Jwt` 8.14.0 — no auth in this version
 
 ---
 
-## 8. Platform Considerations
+## 8. Local Transcription
+
+### 8.1 Approach
+
+Audio transcription runs entirely on-device using a bundled ML model stored in `Resources/Raw/`. No network calls required. The model file (e.g., Whisper GGML/ONNX format) is loaded at app startup or on first transcription request and cached as a singleton.
+
+### 8.2 Model File
+
+- Location: `Resources/Raw/` (bundled as MauiAsset, deployed with the app)
+- Format: to be determined based on chosen runtime (GGML for Whisper.net, ONNX for OnnxRuntime)
+- The user will place the model file in `Resources/Raw/` before build
+- Recommended: Whisper `base` or `small` model for mobile (39MB-244MB)
+
+### 8.3 LocalTranscriptionService
+
+```
+class LocalTranscriptionService : ITranscriptionService
+- LoadModelAsync(): loads model from Resources/Raw/ on first use, caches instance
+- TranscribeAsync(audioPath): converts audio to required format, runs inference, returns List<TranscriptSegment>
+- Runs on background thread to avoid blocking UI
+- Reports progress back to ProcessingViewModel (transcription can take time on-device)
+```
+
+### 8.4 Platform Considerations
+
+- **Android**: ONNX/GGML inference works on ARM64. Model must fit in memory (~100-250MB for small model).
+- **iOS**: Same considerations. May benefit from CoreML delegate if using ONNX Runtime.
+- The Processing screen's step 2 ("Transcribing audio...") will show real progress rather than a fake delay.
+- Audio may need conversion to 16kHz mono WAV before feeding to the model (handled by the service).
+
+---
+
+## 9. Platform Considerations
 
 ### Android
 - Microphone permission (`RECORD_AUDIO`) — request at runtime before recording
@@ -552,9 +585,9 @@ To remove (not needed for v1):
 
 ---
 
-## 9. Out of Scope (v1)
+## 10. Out of Scope (v1)
 
-- Real AI transcription/minutes generation (interfaces ready for future integration)
+- Real AI minutes generation (interface ready for future integration)
 - User authentication / JWT
 - Dark mode (design system supports it via AppThemeBinding but not a v1 priority)
 - Cloud sync / remote API

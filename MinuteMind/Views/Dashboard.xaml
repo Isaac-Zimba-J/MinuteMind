@@ -34,7 +34,7 @@
                     BackgroundColor="{StaticResource SecondaryContainer}"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 20">
-                <Image Source="profile.png"
+                <Image Source="user.png"
                        Aspect="AspectFill"
                        HorizontalOptions="Center"
                        VerticalOptions="Center" />
@@ -65,6 +65,9 @@
                     <Border StrokeThickness="0"
                             StrokeShape="RoundRectangle 32"
                             HeightRequest="{Binding Source={RelativeSource Self}, Path=Width}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RecordMeetingCommand}" />
+                        </Border.GestureRecognizers>
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
@@ -120,6 +123,9 @@
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 32"
                             HeightRequest="{Binding Source={RelativeSource Self}, Path=Width}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UploadAudioCommand}" />
+                        </Border.GestureRecognizers>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource OnSurfaceBrush}"
                                     Offset="0,12"
@@ -168,7 +174,11 @@
                            CharacterSpacing="0"
                            HorizontalOptions="End"
                            TextColor="{StaticResource Primary}"
-                           VerticalOptions="Center" />
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewAllMeetingsCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Grid>
 
                 <!-- Meeting Cards -->
@@ -179,6 +189,9 @@
                             Padding="20"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 24">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}" CommandParameter="1" />
+                        </Border.GestureRecognizers>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource OnSurfaceBrush}"
                                     Offset="0,12"
@@ -241,6 +254,9 @@
                             Padding="20"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 24">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}" CommandParameter="2" />
+                        </Border.GestureRecognizers>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource OnSurfaceBrush}"
                                     Offset="0,12"
@@ -303,6 +319,9 @@
                             Padding="20"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 24">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}" CommandParameter="3" />
+                        </Border.GestureRecognizers>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource OnSurfaceBrush}"
                                     Offset="0,12"
@@ -369,6 +388,7 @@
                            HorizontalOptions="Center" />
                     <Label Text="INTELLIGENT ANALYSIS ACTIVE"
                            Style="{StaticResource LabelSmall}"
+                           CharacterSpacing="0"
                            HorizontalTextAlignment="Center" />
                 </VerticalStackLayout>
 

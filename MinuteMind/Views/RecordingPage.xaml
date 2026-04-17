@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinuteMind.Views.RecordingPage"
              Title="Record"
-             Shell.TabBarIsVisible="False">
+             >
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
         <Label Text="Recording" Style="{StaticResource HeadlineLarge}" HorizontalTextAlignment="Center" />
         <Label Text="Coming soon" Style="{StaticResource BodyMedium}" HorizontalTextAlignment="Center" />

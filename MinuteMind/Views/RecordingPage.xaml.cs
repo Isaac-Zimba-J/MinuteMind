@@ -1,9 +1,12 @@
+using MinuteMind.ViewModels;
+
 namespace MinuteMind.Views;
 
 public partial class RecordingPage : ContentPage
 {
-    public RecordingPage()
+    public RecordingPage(RecordingViewModel viewModel)
     {
         InitializeComponent();
+        BindingContext = viewModel;
     }
 }

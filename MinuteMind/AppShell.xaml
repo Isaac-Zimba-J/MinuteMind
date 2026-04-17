@@ -6,9 +6,50 @@
     xmlns:views="clr-namespace:MinuteMind.Views"
     Title="MinuteMind">
 
-    <ShellContent
-        Title="MinuteMind"
-        ContentTemplate="{DataTemplate views:Dashboard}"
-        Route="Dashboard" />
+    <TabBar>
+        <ShellContent
+            Title="MEETINGS"
+            ContentTemplate="{DataTemplate views:Dashboard}"
+            Route="Dashboard">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="PlusJakartaBold"
+                                 Glyph="&#x25A0;"
+                                 Size="22" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent
+            Title="RECORD"
+            ContentTemplate="{DataTemplate views:RecordingPage}"
+            Route="RecordingPage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="PlusJakartaBold"
+                                 Glyph="&#x25CF;"
+                                 Size="22" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent
+            Title="SEARCH"
+            ContentTemplate="{DataTemplate views:MeetingsPage}"
+            Route="MeetingsPage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="PlusJakartaBold"
+                                 Glyph="&#x2315;"
+                                 Size="22" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent
+            Title="SETTINGS"
+            ContentTemplate="{DataTemplate views:SettingsPage}"
+            Route="SettingsPage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="PlusJakartaBold"
+                                 Glyph="&#x2699;"
+                                 Size="22" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </TabBar>
 
 </Shell>

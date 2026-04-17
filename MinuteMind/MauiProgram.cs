@@ -15,13 +15,17 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                // Plus Jakarta Sans — Headlines
                 fonts.AddFont("PlusJakartaSans-Bold.ttf", "PlusJakartaBold");
-                fonts.AddFont("PlusJakartaSans-Light.ttf", "PlusJakartaLight");
+                fonts.AddFont("PlusJakartaSans-SemiBold.ttf", "PlusJakartaSemiBold");
                 fonts.AddFont("PlusJakartaSans-Medium.ttf", "PlusJakartaMedium");
                 fonts.AddFont("PlusJakartaSans-Regular.ttf", "PlusJakartaRegular");
-                fonts.AddFont("PlusJakartaSans-SemiBold.ttf", "PlusJakartaSemiBold");
+                fonts.AddFont("PlusJakartaSans-Light.ttf", "PlusJakartaLight");
+
+                // Inter — Body & Labels
+                fonts.AddFont("Inter-Regular.ttf", "InterRegular");
+                fonts.AddFont("Inter-Medium.ttf", "InterMedium");
+                fonts.AddFont("Inter-SemiBold.ttf", "InterSemiBold");
             });
 
 #if DEBUG

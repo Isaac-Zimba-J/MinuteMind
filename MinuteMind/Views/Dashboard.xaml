@@ -2,220 +2,289 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinuteMind.Views.Dashboard"
-             BackgroundColor="#F7F7F7">
+             BackgroundColor="{StaticResource Surface}">
 
-    <Grid RowDefinitions="*,Auto">
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Padding="24,18,24,12" Spacing="24">
 
-        <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Never">
-            <VerticalStackLayout Padding="24,18,24,12" Spacing="24">
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                <Label Text="MinuteMind"
+                       FontFamily="PlusJakartaBold"
+                       FontSize="22"
+                       TextColor="{StaticResource Primary}"
+                       VerticalOptions="Center" />
 
-                <!-- Header -->
-                <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
-                    <Label Text="MinuteMind"
-                           FontFamily="PlusJakartaBold"
-                           FontSize="22"
-                           TextColor="{StaticResource Primary}"
-                           VerticalOptions="Center"/>
+                <Border Grid.Column="1"
+                        WidthRequest="46"
+                        HeightRequest="46"
+                        BackgroundColor="{StaticResource SurfaceContainerHighest}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 23">
+                    <Image Source="profile.png"
+                           HeightRequest="30"
+                           WidthRequest="30"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+            </Grid>
 
-                    <Border Grid.Column="1"
-                            WidthRequest="46"
-                            HeightRequest="46"
-                            BackgroundColor="#17313B"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 23">
-                        <Image Source="profile.png"
-                               HeightRequest="30"
-                               WidthRequest="30"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
-                    </Border>
-                </Grid>
+            <!-- Hero -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Capture Clarity."
+                       Style="{StaticResource DisplayLarge}" />
 
-                <!-- Hero -->
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Capture Clarity."
-                           FontFamily="PlusJakartaBold"
-                           FontSize="32"
-                           TextColor="{StaticResource TextColorDark}"/>
-
-                    <Label Text="Your intelligence architect is ready to transcribe your next big idea."
-                           FontFamily="PlusJakartaRegular"
-                           FontSize="15"
-                           TextColor="#5C6470"
-                           LineHeight="1.4"/>
-                </VerticalStackLayout>
-
-                <!-- Actions -->
-                <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
-
-                    <Border BackgroundColor="{StaticResource Primary}"
-                            HeightRequest="180"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 28">
-                        <VerticalStackLayout Padding="10" Spacing="18">
-                            <Border WidthRequest="60"
-                                    HeightRequest="60"
-                                    BackgroundColor="#3A98F3"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 30">
-                                <Image Source="mic.png"
-                                       HeightRequest="24"
-                                       WidthRequest="24"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                            </Border>
-
-                            <Label Text="Record Meeting"
-                                   FontFamily="PlusJakartaBold"
-                                   FontSize="18"
-                                   TextColor="White"/>
-
-                            <Label Text="Live transcription"
-                                   FontFamily="PlusJakartaRegular"
-                                   FontSize="14"
-                                   TextColor="#DDEEFF"/>
-                        </VerticalStackLayout>
-                    </Border>
-
-                    <Border Grid.Column="1"
-                            BackgroundColor="White"
-                            HeightRequest="180"
-                            StrokeThickness="0"
-                            Shadow="0,6,18,#14000000"
-                            StrokeShape="RoundRectangle 28">
-                        <VerticalStackLayout Padding="22" Spacing="18">
-                            <Border WidthRequest="60"
-                                    HeightRequest="60"
-                                    BackgroundColor="#EDF4FD"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 30">
-                                <Image Source="upload.png"
-                                       HeightRequest="24"
-                                       WidthRequest="24"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                            </Border>
-
-                            <Label Text="Upload&#10;Audio"
-                                   FontFamily="PlusJakartaBold"
-                                   FontSize="18"
-                                   TextColor="#111111"/>
-
-                            <Label Text="MP3, WAV, M4A"
-                                   FontFamily="PlusJakartaRegular"
-                                   FontSize="14"
-                                   TextColor="#7A7F87"/>
-                        </VerticalStackLayout>
-                    </Border>
-                </Grid>
-
-                <!-- Recent Meetings -->
-                <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Recent Meetings"
-                           FontFamily="PlusJakartaBold"
-                           FontSize="18"
-                           TextColor="#111111"/>
-                    <Label Grid.Column="1"
-                           Text="VIEW ALL"
-                           FontFamily="PlusJakartaSemiBold"
-                           FontSize="13"
-                           TextColor="{StaticResource Primary}"
-                           VerticalOptions="Center"/>
-                </Grid>
-
-                <VerticalStackLayout Spacing="16">
-
-                    <!-- Card template -->
-                    <Border BackgroundColor="White"
-                            Padding="18"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 24">
-                        <Grid ColumnDefinitions="52,*,Auto" ColumnSpacing="14">
-                            <Border WidthRequest="52"
-                                    HeightRequest="52"
-                                    BackgroundColor="#F1F2F4"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 16">
-                                <Image Source="doc.png"
-                                       HeightRequest="20"
-                                       WidthRequest="20"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                            </Border>
-
-                            <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                <Label Text="Product Sync"
-                                       FontFamily="PlusJakartaSemiBold"
-                                       FontSize="17"
-                                       TextColor="#111111"/>
-                                <Label Text="Oct 24, 2026"
-                                       FontFamily="PlusJakartaRegular"
-                                       FontSize="13"
-                                       TextColor="#7A7F87"/>
-                                <Border BackgroundColor="#DCEBFF"
-                                        Padding="12,5"
-                                        HorizontalOptions="Start"
-                                        StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 18">
-                                    <Label Text="MINUTES READY"
-                                           FontFamily="PlusJakartaBold"
-                                           FontSize="11"
-                                           TextColor="#5B79A4"/>
-                                </Border>
-                            </VerticalStackLayout>
-
-                            <Image Grid.Column="2"
-                                   Source="chevron.png"
-                                   HeightRequest="18"
-                                   WidthRequest="18"
-                                   VerticalOptions="Center"/>
-                        </Grid>
-                    </Border>
-
-                    <Border BackgroundColor="White" Padding="18" StrokeThickness="0" StrokeShape="RoundRectangle 24">
-                        <Grid ColumnDefinitions="52,*,Auto" ColumnSpacing="14">
-                            <Border WidthRequest="52" HeightRequest="52" BackgroundColor="#F1F2F4" StrokeThickness="0" StrokeShape="RoundRectangle 16">
-                                <Image Source="chat.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                <Label Text="Client Kickoff" FontFamily="PlusJakartaSemiBold" FontSize="17"/>
-                                <Label Text="Oct 23, 2026" FontFamily="PlusJakartaRegular" FontSize="13" TextColor="#7A7F87"/>
-                                <Border BackgroundColor="#F0F1F2" Padding="12,5" HorizontalOptions="Start" StrokeThickness="0" StrokeShape="RoundRectangle 18">
-                                    <Label Text="TRANSCRIBED" FontFamily="PlusJakartaBold" FontSize="11" TextColor="#6B717B"/>
-                                </Border>
-                            </VerticalStackLayout>
-                            <Image Grid.Column="2" Source="chevron.png" HeightRequest="18" WidthRequest="18" VerticalOptions="Center"/>
-                        </Grid>
-                    </Border>
-
-                    <Border BackgroundColor="White" Padding="18" StrokeThickness="0" StrokeShape="RoundRectangle 24">
-                        <Grid ColumnDefinitions="52,*,Auto" ColumnSpacing="14">
-                            <Border WidthRequest="52" HeightRequest="52" BackgroundColor="#F1F2F4" StrokeThickness="0" StrokeShape="RoundRectangle 16">
-                                <Image Source="brain.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                <Label Text="Brainstorming Session" FontFamily="PlusJakartaSemiBold" FontSize="17"/>
-                                <Label Text="Oct 21, 2026" FontFamily="PlusJakartaRegular" FontSize="13" TextColor="#7A7F87"/>
-                                <Border BackgroundColor="#DCEBFF" Padding="12,5" HorizontalOptions="Start" StrokeThickness="0" StrokeShape="RoundRectangle 18">
-                                    <Label Text="MINUTES READY" FontFamily="PlusJakartaBold" FontSize="11" TextColor="#5B79A4"/>
-                                </Border>
-                            </VerticalStackLayout>
-                            <Image Grid.Column="2" Source="chevron.png" HeightRequest="18" WidthRequest="18" VerticalOptions="Center"/>
-                        </Grid>
-                    </Border>
-                </VerticalStackLayout>
-
-                <!-- AI Status -->
-                <VerticalStackLayout Padding="0,18" Spacing="10" HorizontalOptions="Center">
-                    <Image Source="sparkle.png" HeightRequest="44" WidthRequest="44" Opacity="0.7"/>
-                    <Label Text="INTELLIGENT ANALYSIS ACTIVE"
-                           FontFamily="PlusJakartaRegular"
-                           FontSize="13"
-                         
-                           TextColor="#A5A9B0"/>
-                </VerticalStackLayout>
+                <Label Text="Your intelligence architect is ready to transcribe your next big idea."
+                       Style="{StaticResource BodyMedium}"
+                       LineHeight="1.4" />
             </VerticalStackLayout>
-        </ScrollView>
 
-    </Grid>
+            <!-- Action Cards -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+
+                <!-- Record Meeting -->
+                <Border BackgroundColor="{StaticResource Primary}"
+                        HeightRequest="180"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 32">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource PrimaryBrush}"
+                                Offset="0,8"
+                                Radius="24"
+                                Opacity="0.2" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Padding="18" Spacing="18">
+                        <Border WidthRequest="56"
+                                HeightRequest="56"
+                                BackgroundColor="#33FFFFFF"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 28"
+                                HorizontalOptions="Start">
+                            <Image Source="mic.png"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label Text="Record Meeting"
+                               Style="{StaticResource HeadlineSmall}"
+                               TextColor="{StaticResource OnPrimary}" />
+
+                        <Label Text="Live transcription"
+                               FontFamily="InterRegular"
+                               FontSize="14"
+                               TextColor="#B3FFFFFF" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Upload Audio -->
+                <Border Grid.Column="1"
+                        BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        HeightRequest="180"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 32">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12"
+                                Radius="32"
+                                Opacity="0.04" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Padding="18" Spacing="18">
+                        <Border WidthRequest="56"
+                                HeightRequest="56"
+                                BackgroundColor="#4DB8D3FD"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 28"
+                                HorizontalOptions="Start">
+                            <Image Source="upload.png"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label Text="Upload&#10;Audio"
+                               Style="{StaticResource HeadlineSmall}" />
+
+                        <Label Text="MP3, WAV, M4A"
+                               Style="{StaticResource BodyMedium}" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Recent Meetings Header -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Recent Meetings"
+                       Style="{StaticResource HeadlineSmall}" />
+                <Label Grid.Column="1"
+                       Text="VIEW ALL"
+                       Style="{StaticResource LabelSmall}"
+                       TextColor="{StaticResource Primary}"
+                       VerticalOptions="Center" />
+            </Grid>
+
+            <!-- Meeting Cards -->
+            <VerticalStackLayout Spacing="16">
+
+                <!-- Card 1: Product Sync -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        Padding="18"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 24">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12"
+                                Radius="32"
+                                Opacity="0.04" />
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="56,*,Auto" ColumnSpacing="14">
+                        <Border WidthRequest="56"
+                                HeightRequest="56"
+                                BackgroundColor="{StaticResource SurfaceContainer}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16">
+                            <Image Source="doc.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                            <Label Text="Product Sync"
+                                   Style="{StaticResource TitleMedium}" />
+                            <Label Text="Oct 24, 2026"
+                                   Style="{StaticResource BodySmall}" />
+                            <Border BackgroundColor="{StaticResource SecondaryContainer}"
+                                    Padding="12,5"
+                                    HorizontalOptions="Start"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 18">
+                                <Label Text="MINUTES READY"
+                                       Style="{StaticResource LabelSmall}"
+                                       TextColor="{StaticResource OnSecondaryContainer}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Image Grid.Column="2"
+                               Source="chevron.png"
+                               HeightRequest="18"
+                               WidthRequest="18"
+                               VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- Card 2: Client Kickoff -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        Padding="18"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 24">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12"
+                                Radius="32"
+                                Opacity="0.04" />
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="56,*,Auto" ColumnSpacing="14">
+                        <Border WidthRequest="56"
+                                HeightRequest="56"
+                                BackgroundColor="{StaticResource SurfaceContainer}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16">
+                            <Image Source="chat.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                            <Label Text="Client Kickoff"
+                                   Style="{StaticResource TitleMedium}" />
+                            <Label Text="Oct 23, 2026"
+                                   Style="{StaticResource BodySmall}" />
+                            <Border BackgroundColor="{StaticResource SurfaceContainerHigh}"
+                                    Padding="12,5"
+                                    HorizontalOptions="Start"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 18">
+                                <Label Text="TRANSCRIBED"
+                                       Style="{StaticResource LabelSmall}"
+                                       TextColor="{StaticResource OnSurfaceVariant}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Image Grid.Column="2"
+                               Source="chevron.png"
+                               HeightRequest="18"
+                               WidthRequest="18"
+                               VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- Card 3: Brainstorming Session -->
+                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        Padding="18"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 24">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                Offset="0,12"
+                                Radius="32"
+                                Opacity="0.04" />
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="56,*,Auto" ColumnSpacing="14">
+                        <Border WidthRequest="56"
+                                HeightRequest="56"
+                                BackgroundColor="{StaticResource SurfaceContainer}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16">
+                            <Image Source="brain.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                            <Label Text="Brainstorming Session"
+                                   Style="{StaticResource TitleMedium}" />
+                            <Label Text="Oct 21, 2026"
+                                   Style="{StaticResource BodySmall}" />
+                            <Border BackgroundColor="{StaticResource SecondaryContainer}"
+                                    Padding="12,5"
+                                    HorizontalOptions="Start"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 18">
+                                <Label Text="MINUTES READY"
+                                       Style="{StaticResource LabelSmall}"
+                                       TextColor="{StaticResource OnSecondaryContainer}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Image Grid.Column="2"
+                               Source="chevron.png"
+                               HeightRequest="18"
+                               WidthRequest="18"
+                               VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- AI Status -->
+            <VerticalStackLayout Padding="0,18" Spacing="10" HorizontalOptions="Center">
+                <Image Source="sparkle.png"
+                       HeightRequest="44"
+                       WidthRequest="44"
+                       Opacity="0.4" />
+                <Label Text="INTELLIGENT ANALYSIS ACTIVE"
+                       Style="{StaticResource LabelSmall}"
+                       Opacity="0.4"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

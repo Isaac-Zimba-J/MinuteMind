@@ -43,6 +43,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ITranscriptionService, LocalTranscriptionService>();
         builder.Services.AddTransient<IMinutesGeneratorService, MockMinutesGeneratorService>();
         builder.Services.AddTransient<IPdfExportService, PdfExportService>();
+        builder.Services.AddSingleton(AudioManager.Current);
 
         // ViewModels
         builder.Services.AddTransient<DashboardViewModel>();

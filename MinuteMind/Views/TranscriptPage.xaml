@@ -85,14 +85,14 @@
                                 </Border.Shadow>
                                 <VerticalStackLayout Spacing="16">
                                     <!-- Timestamp -->
-                                    <Label Text="{Binding Timestamp}"
+                                    <Label Text="{Binding TimestampDisplay}"
                                            FontFamily="InterSemiBold"
                                            FontSize="11"
                                            CharacterSpacing="1"
                                            TextColor="{StaticResource Primary}"
                                            BackgroundColor="#0D005FAA"
                                            Padding="8,4" />
-
+yes
                                     <!-- Speaker + Text -->
                                     <Grid ColumnDefinitions="40,*" ColumnSpacing="16">
                                         <!-- Speaker avatar -->

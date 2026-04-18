@@ -11,7 +11,7 @@
         <!-- Header -->
         <Grid Grid.Row="0"
               ColumnDefinitions="Auto,*,Auto"
-              Padding="16,0"
+              Padding="10,0"
               VerticalOptions="Center"
               BackgroundColor="{StaticResource Surface}">
 
@@ -42,12 +42,12 @@
 
         <!-- Content -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
-            <VerticalStackLayout Padding="24,0,24,32" Spacing="24">
+            <VerticalStackLayout Padding="20,0,20,32" Spacing="24">
 
                 <!-- Hero Header with left border accent -->
                 <Border StrokeThickness="0"
                         BackgroundColor="Transparent"
-                        Padding="24,8">
+                        Padding="12,8">
                     <Grid ColumnDefinitions="4,*" ColumnSpacing="24">
                         <!-- Primary accent bar -->
                         <BoxView WidthRequest="4"
@@ -156,7 +156,7 @@
 
                 <!-- Attendees Card -->
                 <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
-                        Padding="32"
+                        Padding="24"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 16">
                     <Border.Shadow>
@@ -215,7 +215,7 @@
 
                 <!-- Discussion Points Card -->
                 <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
-                        Padding="32"
+                        Padding="24"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 16">
                     <Border.Shadow>
@@ -266,7 +266,7 @@
 
                 <!-- Decisions Card (Primary background) -->
                 <Border BackgroundColor="{StaticResource Primary}"
-                        Padding="40"
+                        Padding="24"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 16">
                     <Border.Shadow>
@@ -316,7 +316,7 @@
 
                 <!-- Action Items Card -->
                 <Border BackgroundColor="{StaticResource SurfaceContainerLow}"
-                        Padding="32"
+                        Padding="24"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 16">
                     <VerticalStackLayout Spacing="24">
@@ -341,7 +341,7 @@
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="models:ActionItem">
                                     <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
-                                            Padding="16"
+                                            Padding="10"
                                             StrokeThickness="0"
                                             StrokeShape="RoundRectangle 12">
                                         <Grid ColumnDefinitions="24,*" ColumnSpacing="16">
@@ -388,27 +388,7 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- AI Generated Footer -->
-                <Border BackgroundColor="#4DB8D3FD"
-                        StrokeThickness="1"
-                        Stroke="#80B8D3FD"
-                        StrokeShape="RoundRectangle 20"
-                        Padding="16,10"
-                        HorizontalOptions="Center"
-                        Margin="0,16,0,0">
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                        <Image Source="sparkle.png"
-                               HeightRequest="14"
-                               WidthRequest="14"
-                               VerticalOptions="Center" />
-                        <Label Text="AI-GENERATED INTELLIGENCE LAYER"
-                               FontFamily="InterSemiBold"
-                               FontSize="11"
-                               CharacterSpacing="2"
-                               TextColor="{StaticResource Secondary}"
-                               VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </Border>
+                
 
             </VerticalStackLayout>
         </ScrollView>

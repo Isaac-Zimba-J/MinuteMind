@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MinuteMind.Views.RecordingPage"
+             xmlns:controls="clr-namespace:MinuteMind.Controls"
              BackgroundColor="{StaticResource Surface}"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True">
@@ -53,24 +54,11 @@
                        Margin="0,0,0,48" />
 
                 <!-- Waveform Visualizer -->
-                <HorizontalStackLayout Spacing="6"
-                                       HorizontalOptions="Center"
+                <controls:WaveformView Levels="{Binding WaveformLevels}"
                                        HeightRequest="128"
-                                       Margin="0,0,0,64">
-                    <BoxView WidthRequest="6" HeightRequest="32" Color="{StaticResource Primary}" Opacity="0.2" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="48" Color="{StaticResource Primary}" Opacity="0.3" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="80" Color="{StaticResource Primary}" Opacity="0.4" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="96" Color="{StaticResource Primary}" Opacity="0.6" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="128" Color="{StaticResource Primary}" Opacity="1.0" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="64" Color="{StaticResource Primary}" Opacity="0.8" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="112" Color="{StaticResource Primary}" Opacity="1.0" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="48" Color="{StaticResource Primary}" Opacity="0.4" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="80" Color="{StaticResource Primary}" Opacity="0.6" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="32" Color="{StaticResource Primary}" Opacity="0.2" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="56" Color="{StaticResource Primary}" Opacity="0.4" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="96" Color="{StaticResource Primary}" Opacity="0.7" CornerRadius="3" VerticalOptions="Center" />
-                    <BoxView WidthRequest="6" HeightRequest="40" Color="{StaticResource Primary}" Opacity="0.3" CornerRadius="3" VerticalOptions="Center" />
-                </HorizontalStackLayout>
+                                       WidthRequest="200"
+                                       HorizontalOptions="Center"
+                                       Margin="0,0,0,48" />
 
                 <!-- Timer Display -->
                 <Label Text="{Binding ElapsedTime}"
@@ -190,28 +178,8 @@
                                 Radius="32"
                                 Opacity="0.04" />
                     </Border.Shadow>
-                    <VerticalStackLayout Spacing="12">
-                        <Grid ColumnDefinitions="*,Auto">
-                            <Label Text="LIVE INSIGHT"
-                                   FontFamily="InterSemiBold"
-                                   FontSize="10"
-                                   CharacterSpacing="2"
-                                   TextColor="{StaticResource Primary}" />
-                            <!-- Red live dot -->
-                            <Border Grid.Column="1"
-                                    WidthRequest="8"
-                                    HeightRequest="8"
-                                    BackgroundColor="{StaticResource Error}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 4"
-                                    VerticalOptions="Center" />
-                        </Grid>
-                        <Label Text="{Binding LiveInsight}"
-                               FontFamily="InterRegular"
-                               FontSize="14"
-                               LineHeight="1.5"
-                               TextColor="{StaticResource OnSurface}" />
-                    </VerticalStackLayout>
+                   
+
                 </Border>
 
             </VerticalStackLayout>

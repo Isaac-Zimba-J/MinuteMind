@@ -21,6 +21,12 @@ public partial class RecordingViewModel(
     [NotifyPropertyChangedFor(nameof(PauseButtonText))]
     bool isPaused;
 
+    [ObservableProperty]
+    float[] waveformLevels = new float[13];
+
+    private IDispatcherTimer? _waveformTimer;
+    private readonly Random _rng = new();
+
     public string PauseButtonText => IsPaused ? "Resume" : "Pause";
 
     [ObservableProperty]
@@ -47,6 +53,20 @@ public partial class RecordingViewModel(
             };
             _timer.Start();
         }
+
+        _waveformTimer = Application.Current?.Dispatcher.CreateTimer();
+        if (_waveformTimer is not null)
+        {
+            _waveformTimer.Interval = TimeSpan.FromMilliseconds(150);
+            _waveformTimer.Tick += (s, e) =>
+            {
+                var levels = new float[13];
+                for (int i = 0; i < levels.Length; i++)
+                    levels[i] = (float)(_rng.NextDouble() * 0.8 + 0.1);
+                WaveformLevels = levels;
+            };
+            _waveformTimer.Start();
+        }
     }
 
     [RelayCommand]
@@ -56,12 +76,14 @@ public partial class RecordingViewModel(
         {
             await audioRecorder.ResumeAsync();
             _timer?.Start();
+            _waveformTimer?.Start();
             IsPaused = false;
         }
         else
         {
             await audioRecorder.PauseAsync();
             _timer?.Stop();
+            _waveformTimer?.Stop();
             IsPaused = true;
         }
     }
@@ -70,6 +92,7 @@ public partial class RecordingViewModel(
     async Task StopRecording()
     {
         _timer?.Stop();
+        _waveformTimer?.Stop();
         var audioPath = await audioRecorder.StopAsync();
 
         await navigationService.GoToAsync(nameof(Views.ProcessingPage),

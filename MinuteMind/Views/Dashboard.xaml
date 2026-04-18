@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="MinuteMind.Views.Dashboard"
              BackgroundColor="{StaticResource Surface}"
              Shell.NavBarIsVisible="False">
@@ -190,7 +191,11 @@
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 24">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}" CommandParameter="1" />
+                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}">
+                                <TapGestureRecognizer.CommandParameter>
+                                    <x:Int32>1</x:Int32>
+                                </TapGestureRecognizer.CommandParameter>
+                            </TapGestureRecognizer>
                         </Border.GestureRecognizers>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource OnSurfaceBrush}"
@@ -255,7 +260,11 @@
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 24">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}" CommandParameter="2" />
+                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}">
+                                <TapGestureRecognizer.CommandParameter>
+                                    <x:Int32>2</x:Int32>
+                                </TapGestureRecognizer.CommandParameter>
+                            </TapGestureRecognizer>
                         </Border.GestureRecognizers>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource OnSurfaceBrush}"
@@ -320,7 +329,11 @@
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 24">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}" CommandParameter="3" />
+                            <TapGestureRecognizer Command="{Binding OpenMeetingCommand}">
+                                <TapGestureRecognizer.CommandParameter>
+                                    <x:Int32>3</x:Int32>
+                                </TapGestureRecognizer.CommandParameter>
+                            </TapGestureRecognizer>
                         </Border.GestureRecognizers>
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource OnSurfaceBrush}"

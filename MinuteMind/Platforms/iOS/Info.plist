@@ -28,5 +28,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>MinuteMind needs microphone access to record meetings.</string>
 </dict>
 </plist>

@@ -92,7 +92,7 @@
                                            TextColor="{StaticResource Primary}"
                                            BackgroundColor="#0D005FAA"
                                            Padding="8,4" />
-yes
+
                                     <!-- Speaker + Text -->
                                     <Grid ColumnDefinitions="40,*" ColumnSpacing="16">
                                         <!-- Speaker avatar -->

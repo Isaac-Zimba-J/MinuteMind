@@ -22,6 +22,12 @@ public partial class RecordingViewModel(
     bool isPaused;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotRecording))]
+    bool isRecording;
+
+    public bool IsNotRecording => !IsRecording;
+
+    [ObservableProperty]
     float[] waveformLevels = new float[13];
 
     private IDispatcherTimer? _waveformTimer;
@@ -38,6 +44,7 @@ public partial class RecordingViewModel(
     [RelayCommand]
     async Task StartRecording()
     {
+        IsRecording = true;
         await audioRecorder.StartAsync();
         _elapsed = TimeSpan.Zero;
         StartedAt = $"Started at {DateTime.Now:h:mm tt}";
@@ -91,6 +98,7 @@ public partial class RecordingViewModel(
     [RelayCommand]
     async Task StopRecording()
     {
+        IsRecording = false;
         _timer?.Stop();
         _waveformTimer?.Stop();
         var audioPath = await audioRecorder.StopAsync();

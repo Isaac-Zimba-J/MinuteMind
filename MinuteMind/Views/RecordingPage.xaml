@@ -7,15 +7,88 @@
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True">
 
-    <Grid RowDefinitions="*,Auto" Padding="0">
+    <Grid RowDefinitions="*">
 
-        <!-- Main Content -->
-        <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Never">
+        <!-- ═══════════════════════════════════════ -->
+        <!-- IDLE STATE — tap to start               -->
+        <!-- ═══════════════════════════════════════ -->
+        <VerticalStackLayout IsVisible="{Binding IsNotRecording}"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="0"
+                             Padding="32">
+
+            <!-- Badge -->
+            <Border BackgroundColor="#4DB8D3FD"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="14,6"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,48">
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                    <Image Source="sparkle.png" HeightRequest="14" WidthRequest="14" VerticalOptions="Center" />
+                    <Label Text="AI TRANSCRIPTION READY"
+                           FontFamily="InterSemiBold"
+                           FontSize="11"
+                           CharacterSpacing="1"
+                           TextColor="{StaticResource OnSecondaryContainer}"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Big mic button -->
+            <Border WidthRequest="160"
+                    HeightRequest="160"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 80"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,32">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
+                        <GradientStop Color="{StaticResource PrimaryContainer}" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource PrimaryBrush}"
+                            Offset="0,12"
+                            Radius="40"
+                            Opacity="0.25" />
+                </Border.Shadow>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding StartRecordingCommand}" />
+                </Border.GestureRecognizers>
+                <Image Source="mic.png"
+                       HeightRequest="64"
+                       WidthRequest="64"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <Label Text="Tap to Start Recording"
+                   FontFamily="PlusJakartaBold"
+                   FontSize="22"
+                   TextColor="{StaticResource OnSurface}"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,0,0,8" />
+
+            <Label Text="Your audio will be transcribed on-device."
+                   FontFamily="InterRegular"
+                   FontSize="14"
+                   TextColor="{StaticResource OnSurfaceVariant}"
+                   HorizontalTextAlignment="Center" />
+
+        </VerticalStackLayout>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- RECORDING STATE — live UI               -->
+        <!-- ═══════════════════════════════════════ -->
+        <ScrollView IsVisible="{Binding IsRecording}" VerticalScrollBarVisibility="Never">
             <VerticalStackLayout HorizontalOptions="Center"
                                  Padding="32,48,32,24"
                                  Spacing="0">
 
-                <!-- AI Transcription Active Badge -->
+                <!-- Badge -->
                 <Border BackgroundColor="#4DB8D3FD"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 20"
@@ -23,10 +96,7 @@
                         HorizontalOptions="Center"
                         Margin="0,0,0,24">
                     <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                        <Image Source="sparkle.png"
-                               HeightRequest="14"
-                               WidthRequest="14"
-                               VerticalOptions="Center" />
+                        <Image Source="sparkle.png" HeightRequest="14" WidthRequest="14" VerticalOptions="Center" />
                         <Label Text="AI TRANSCRIPTION ACTIVE"
                                FontFamily="InterSemiBold"
                                FontSize="11"
@@ -40,12 +110,11 @@
                 <Label Text="{Binding MeetingTitle}"
                        FontFamily="PlusJakartaBold"
                        FontSize="30"
-                       CharacterSpacing="0"
                        TextColor="{StaticResource OnSurface}"
                        HorizontalTextAlignment="Center"
                        Margin="0,0,0,8" />
 
-                <!-- Meta Info -->
+                <!-- Started At -->
                 <Label Text="{Binding StartedAt}"
                        FontFamily="InterMedium"
                        FontSize="14"
@@ -53,72 +122,38 @@
                        HorizontalTextAlignment="Center"
                        Margin="0,0,0,48" />
 
-                <!-- Waveform Visualizer -->
+                <!-- Waveform -->
                 <controls:WaveformView Levels="{Binding WaveformLevels}"
                                        HeightRequest="128"
                                        WidthRequest="200"
                                        HorizontalOptions="Center"
                                        Margin="0,0,0,48" />
 
-                <!-- Timer Display -->
+                <!-- Timer -->
                 <Label Text="{Binding ElapsedTime}"
                        FontFamily="PlusJakartaBold"
                        FontSize="72"
                        CharacterSpacing="-2"
                        TextColor="{StaticResource OnSurface}"
                        HorizontalTextAlignment="Center"
-                       Margin="0,0,0,64" />
+                       Margin="0,0,0,48" />
 
-                <!-- Record / Stop Button -->
-                <Border WidthRequest="96"
-                        HeightRequest="96"
-                        BackgroundColor="{StaticResource SurfaceContainerLowest}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 48"
-                        HorizontalOptions="Center"
-                        Margin="0,0,0,48">
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
-                                Offset="0,12"
-                                Radius="32"
-                                Opacity="0.06" />
-                    </Border.Shadow>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding StopRecordingCommand}" />
-                    </Border.GestureRecognizers>
-                    <!-- Red square = stop icon -->
-                    <Border WidthRequest="32"
-                            HeightRequest="32"
-                            BackgroundColor="{StaticResource Error}"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 6"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center" />
-                </Border>
-
-                <!-- Pause / Stop Buttons -->
-                <HorizontalStackLayout Spacing="24"
+                <!-- Pause + Stop buttons -->
+                <HorizontalStackLayout Spacing="16"
                                        HorizontalOptions="Center"
-                                       Margin="0,0,0,80">
+                                       Margin="0,0,0,32">
 
-                    <!-- Pause Button -->
+                    <!-- Pause -->
                     <Border BackgroundColor="{StaticResource SurfaceContainerHigh}"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 24"
                             Padding="24,14"
-                            HeightRequest="48">
+                            HeightRequest="52">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding TogglePauseCommand}" />
                         </Border.GestureRecognizers>
                         <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                            <!-- <Label Text="&#x23F8;"
-                                   FontSize="18"
-                                   TextColor="{StaticResource OnSurface}"
-                                   VerticalOptions="Center" /> -->
-                            <Image Source="pause.png"
-                                   HeightRequest="18"
-                                   WidthRequest="18"
-                                   VerticalOptions="Center" />
+                            <Image Source="pause.png" HeightRequest="18" WidthRequest="18" VerticalOptions="Center" />
                             <Label Text="{Binding PauseButtonText}"
                                    FontFamily="PlusJakartaSemiBold"
                                    FontSize="14"
@@ -127,11 +162,11 @@
                         </HorizontalStackLayout>
                     </Border>
 
-                    <!-- Stop Recording Button -->
+                    <!-- Stop -->
                     <Border StrokeThickness="0"
                             StrokeShape="RoundRectangle 24"
                             Padding="32,14"
-                            HeightRequest="48">
+                            HeightRequest="52">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
@@ -139,24 +174,13 @@
                             </LinearGradientBrush>
                         </Border.Background>
                         <Border.Shadow>
-                            <Shadow Brush="{StaticResource PrimaryBrush}"
-                                    Offset="0,8"
-                                    Radius="24"
-                                    Opacity="0.2" />
+                            <Shadow Brush="{StaticResource PrimaryBrush}" Offset="0,8" Radius="24" Opacity="0.2" />
                         </Border.Shadow>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding StopRecordingCommand}" />
                         </Border.GestureRecognizers>
                         <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                            <!-- <Label Text="&#x23F9;"
-                                   FontSize="18"
-                                   TextColor="{StaticResource OnPrimary}"
-                                   VerticalOptions="Center" /> -->
-
-                            <Image Source="stop.png"
-                                   HeightRequest="18"
-                                   WidthRequest="18"
-                                   VerticalOptions="Center" />
+                            <Image Source="stop.png" HeightRequest="18" WidthRequest="18" VerticalOptions="Center" />
                             <Label Text="Stop Recording"
                                    FontFamily="PlusJakartaBold"
                                    FontSize="14"
@@ -170,20 +194,31 @@
                 <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 16"
-                        Padding="16"
-                        Margin="0,0,0,0">
+                        Padding="16">
                     <Border.Shadow>
-                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
-                                Offset="0,12"
-                                Radius="32"
-                                Opacity="0.04" />
+                        <Shadow Brush="{StaticResource OnSurfaceBrush}" Offset="0,12" Radius="32" Opacity="0.04" />
                     </Border.Shadow>
-                   
-
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="8">
+                            <Image Source="sparkle.png" HeightRequest="14" WidthRequest="14" VerticalOptions="Center" />
+                            <Label Text="LIVE INSIGHT"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="10"
+                                   CharacterSpacing="2"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Label Text="{Binding LiveInsight}"
+                               FontFamily="InterRegular"
+                               FontSize="14"
+                               LineHeight="1.5"
+                               TextColor="{StaticResource OnSurfaceVariant}" />
+                    </VerticalStackLayout>
                 </Border>
 
             </VerticalStackLayout>
         </ScrollView>
+
     </Grid>
 
 </ContentPage>

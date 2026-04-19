@@ -23,8 +23,5 @@ public class NavigationService(IServiceProvider services) : INavigationService
                 Application.Current.Windows[0].Page = services.GetRequiredService<AppShell>();
         });
 
-    Task INavigationService.NavigateToLoginAsync()
-    {
-        throw new NotImplementedException();
-    }
+
 }

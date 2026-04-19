@@ -1,18 +1,18 @@
 using MinuteMind.Services.Contracts;
+using Plugin.Maui.Audio;
 
 namespace MinuteMind.Services.Implementations;
 
 public class AudioRecorderService : IAudioRecorderService
 {
-
-    private readonly AudioManager _audioManager;
+    private readonly IAudioManager _audioManager;
     private IAudioRecorder? _recorder;
     private string _filePath = string.Empty;
 
     public bool IsRecording { get; private set; }
     public bool IsPaused { get; private set; }
 
-    public AudioRecorderService(AudioManager audioManager)
+    public AudioRecorderService(IAudioManager audioManager)
     {
         _audioManager = audioManager;
     }
@@ -39,18 +39,16 @@ public class AudioRecorderService : IAudioRecorderService
         return _filePath;
     }
 
-     public async Task PauseAsync()
+    public Task PauseAsync()
     {
-        if (_recorder is null) return;
-        await _recorder.PauseAsync();
         IsPaused = true;
+        return Task.CompletedTask;
     }
 
-    public async Task ResumeAsync()
+    public Task ResumeAsync()
     {
-        if (_recorder is null) return;
-        await _recorder.ResumeAsync();
         IsPaused = false;
+        return Task.CompletedTask;
     }
 
     public async Task<string> StopAsync()

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using DotNet.Meteor.HotReload.Plugin;
 using CommunityToolkit.Maui;
+using Plugin.Maui.Audio;
 using MinuteMind.Data;
 using MinuteMind.Services.Contracts;
 using MinuteMind.Services.Implementations;
@@ -43,7 +44,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ITranscriptionService, LocalTranscriptionService>();
         builder.Services.AddTransient<IMinutesGeneratorService, MockMinutesGeneratorService>();
         builder.Services.AddTransient<IPdfExportService, PdfExportService>();
-        builder.Services.AddSingleton(AudioManager.Current);
+        builder.Services.AddSingleton<Plugin.Maui.Audio.IAudioManager>(AudioManager.Current);
 
         // ViewModels
         builder.Services.AddTransient<DashboardViewModel>();

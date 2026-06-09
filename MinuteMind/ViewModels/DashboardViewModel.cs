@@ -1,5 +1,7 @@
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MinuteMind.Models;
 using MinuteMind.Services.Contracts;
 
 namespace MinuteMind.ViewModels;
@@ -8,6 +10,19 @@ public partial class DashboardViewModel(
     IMeetingRepository meetingRepository,
     INavigationService navigationService) : ObservableObject
 {
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasNoRecentMeetings))]
+    ObservableCollection<Meeting> recentMeetings = new();
+
+    public bool HasNoRecentMeetings => RecentMeetings.Count == 0;
+
+    [RelayCommand]
+    async Task LoadRecentMeetings()
+    {
+        var meetings = await meetingRepository.GetRecentAsync(3);
+        RecentMeetings = new ObservableCollection<Meeting>(meetings);
+    }
+
     [RelayCommand]
     async Task RecordMeeting()
     {
@@ -30,7 +45,12 @@ public partial class DashboardViewModel(
         if (result is not null)
         {
             await navigationService.GoToAsync(nameof(Views.ProcessingPage),
-                new Dictionary<string, object> { { "AudioPath", result.FullPath } });
+                new Dictionary<string, object>
+                {
+                    { "AudioPath", result.FullPath },
+                    { "MeetingTitle", Path.GetFileNameWithoutExtension(result.FileName) },
+                    { "Duration", 0L }
+                });
         }
     }
 

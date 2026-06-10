@@ -9,7 +9,7 @@ namespace MinuteMind.Services.Implementations;
 public class GroqMinutesGeneratorService(IHttpClientFactory httpClientFactory) : IMinutesGeneratorService
 {
     private const string ApiUrl = "https://api.groq.com/openai/v1/chat/completions";
-    private const string Model = "llama-3.1-8b-instant";
+    private const string Model = "llama-3.3-70b-versatile";
     private const int MaxTranscriptChars = 8000;
 
     private static readonly JsonSerializerOptions _jsonOptions =

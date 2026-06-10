@@ -15,42 +15,48 @@ public class LlmMinutesGeneratorService(IHttpClientFactory httpClientFactory) : 
     private const int MaxTranscriptChars = 6000;
 
     private readonly string _modelPath = Path.Combine(FileSystem.AppDataDirectory, ModelFileName);
+    private readonly SemaphoreSlim _inferLock = new(1, 1);
 
     public async Task<MeetingMinutes> GenerateAsync(
         List<TranscriptSegment> transcript,
         IProgress<string>? progress = null)
     {
-        await EnsureModelDownloadedAsync(progress);
-
-        progress?.Report("Loading AI model…");
-        var modelParams = new ModelParams(_modelPath)
+        await _inferLock.WaitAsync();
+        try
         {
-            ContextSize = 4096u,
-            GpuLayerCount = 0
-        };
+            await EnsureModelDownloadedAsync(progress);
 
-        using var weights = LLamaWeights.LoadFromFile(modelParams);
-        var executor = new StatelessExecutor(weights, modelParams, logger: null);
-
-        progress?.Report("Generating minutes…");
-        var prompt = BuildPrompt(transcript);
-        var inferenceParams = new InferenceParams
-        {
-            MaxTokens = 1024,
-            AntiPrompts = ["<|im_end|>", "<|endoftext|>", "<|im_start|>"],
-            SamplingPipeline = new DefaultSamplingPipeline
+            progress?.Report("Loading AI model…");
+            var modelParams = new ModelParams(_modelPath)
             {
-                Temperature = 0.1f
+                ContextSize = 4096u,
+                GpuLayerCount = 0
+            };
+
+            using var weights = LLamaWeights.LoadFromFile(modelParams);
+            var executor = new StatelessExecutor(weights, modelParams, logger: null);
+
+            progress?.Report("Generating minutes…");
+            var prompt = BuildPrompt(transcript);
+            var inferenceParams = new InferenceParams
+            {
+                MaxTokens = 1024,
+                SamplingPipeline = new DefaultSamplingPipeline { Temperature = 0.1f },
+                AntiPrompts = ["<|im_end|>", "<|endoftext|>", "<|im_start|>"]
+            };
+
+            var sb = new StringBuilder();
+            await foreach (var token in executor.InferAsync(prompt, inferenceParams))
+            {
+                sb.Append(token);
             }
-        };
 
-        var sb = new StringBuilder();
-        await foreach (var token in executor.InferAsync(prompt, inferenceParams))
-        {
-            sb.Append(token);
+            return ParseMinutes(sb.ToString());
         }
-
-        return ParseMinutes(sb.ToString());
+        finally
+        {
+            _inferLock.Release();
+        }
     }
 
     private async Task EnsureModelDownloadedAsync(IProgress<string>? progress)

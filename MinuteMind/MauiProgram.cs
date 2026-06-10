@@ -42,7 +42,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<INavigationService, NavigationService>();
         builder.Services.AddSingleton<IAudioRecorderService, AudioRecorderService>();
         builder.Services.AddSingleton<ITranscriptionService, LocalTranscriptionService>();
-        builder.Services.AddTransient<IMinutesGeneratorService, LlmMinutesGeneratorService>();
+        builder.Services.AddSingleton<IMinutesGeneratorService, LlmMinutesGeneratorService>();
         builder.Services.AddTransient<IPdfExportService, PdfExportService>();
         builder.Services.AddSingleton<Plugin.Maui.Audio.IAudioManager>(AudioManager.Current);
         builder.Services.AddHttpClient();

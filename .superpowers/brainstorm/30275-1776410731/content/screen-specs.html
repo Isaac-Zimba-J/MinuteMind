@@ -1,0 +1,257 @@
+<h2>MinuteMind — Screen Specifications</h2>
+<p class="subtitle">MAUI translation of each Stitch mockup with component breakdown</p>
+
+<!-- SCREEN 1: DASHBOARD -->
+<div class="section" style="margin-bottom: 32px;">
+  <h3>1. Dashboard (Home Tab)</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Layout</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>ScrollView → VerticalStackLayout</li>
+        <li>Header: Grid (hamburger + "MinuteMind" label + avatar Border)</li>
+        <li>Hero: Label "Capture Clarity." (PlusJakartaBold, 34sp) + subtitle (Inter, 15sp)</li>
+        <li>Action Cards: 2-column Grid, equal aspect ratio</li>
+        <li>Record card: Border with gradient bg (#005FAA→#0078D4), rounded 32dp</li>
+        <li>Upload card: Border white bg, ghost shadow, rounded 32dp</li>
+        <li>Recent Meetings: CollectionView with DataTemplate</li>
+        <li>Each item: Border (white, rounded 24dp) → Grid (icon container + title/date/badge + chevron)</li>
+        <li>AI Pulse footer: decorative Label</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">ViewModel Bindings</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li><code>RecentMeetings</code> — ObservableCollection&lt;Meeting&gt; (last 5)</li>
+        <li><code>RecordCommand</code> → navigate to RecordingPage</li>
+        <li><code>UploadCommand</code> → FilePicker then ProcessingPage</li>
+        <li><code>ViewMeetingCommand</code> → MinutesPage with meeting ID</li>
+        <li><code>ViewAllCommand</code> → switch to Search tab</li>
+      </ul>
+      <strong style="color: #005FAA; margin-top: 12px; display: block;">Status Badges</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>"MINUTES READY" → SecondaryContainer bg, pill shape</li>
+        <li>"TRANSCRIBED" → SurfaceContainerHigh bg, muted</li>
+        <li>"PROCESSING" → Primary bg with pulse animation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 2: RECORDING -->
+<div class="section" style="margin-bottom: 32px;">
+  <h3>2. Recording Page</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Layout</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Full-screen, tab bar hidden (Shell.TabBarIsVisible=false)</li>
+        <li>Header: same app bar</li>
+        <li>"AI TRANSCRIPTION ACTIVE" chip: Border with SecondaryContainer/30 bg</li>
+        <li>Meeting title: Label (PlusJakarta, 28sp bold)</li>
+        <li>Metadata: "Started at 10:30 AM • 4 Participants Detected"</li>
+        <li>Waveform: Custom GraphicsView (WaveformView) — 13 animated bars</li>
+        <li>Timer: Label (PlusJakarta, 64sp ExtraBold, tabular figures)</li>
+        <li>Stop button: 96dp circle Border with pulsing red animation</li>
+        <li>Pause + Stop Recording: HorizontalStackLayout of Buttons</li>
+        <li>Toast: "Capturing from Internal Mic" — fixed bottom Border</li>
+        <li>Live Insight: Border card with real-time transcript preview</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">ViewModel Bindings</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li><code>IsRecording</code>, <code>IsPaused</code> — state booleans</li>
+        <li><code>ElapsedTime</code> — TimeSpan, formatted HH:mm:ss</li>
+        <li><code>WaveformLevels</code> — float[] for bar heights</li>
+        <li><code>LiveInsightText</code> — latest transcript snippet</li>
+        <li><code>MeetingTitle</code> — editable string</li>
+        <li><code>PauseCommand</code>, <code>StopCommand</code></li>
+        <li>Uses IAudioRecorderService for actual recording</li>
+      </ul>
+      <strong style="color: #005FAA; margin-top: 12px; display: block;">Animations</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Waveform bars: random height changes via timer (CommunityToolkit animations)</li>
+        <li>Stop button: pulsing red ring (ScaleTo animation loop)</li>
+        <li>Red dot on Live Insight: opacity pulse</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: PROCESSING -->
+<div class="section" style="margin-bottom: 32px;">
+  <h3>3. Processing Page</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Layout</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Full-screen, tab bar hidden, back nav disabled</li>
+        <li>"Processing Meeting..." headline (PlusJakarta, 28sp bold)</li>
+        <li>Central spinner: 192dp Border circle with rotating arc (custom GraphicsView or animated Border)</li>
+        <li>Inner: mic icon + "ANALYZING" label</li>
+        <li>3 step cards in VerticalStackLayout:</li>
+        <li>Step 1 (done): white card, checkmark circle, "Uploading audio... 2.4MB complete"</li>
+        <li>Step 2 (active): white card with blue left border (4dp), spinner icon, bold blue text</li>
+        <li>Step 3 (pending): muted card at 60% opacity</li>
+        <li>Footer: "POWERED BY MINUTEMIND INTELLIGENCE V4.2"</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">ViewModel Bindings</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li><code>CurrentStep</code> — enum (Uploading, Transcribing, Generating)</li>
+        <li><code>Steps</code> — ObservableCollection with status per step</li>
+        <li>Auto-advances through steps with mock delays (2s, 3s, 2s)</li>
+        <li>On completion → auto-navigates to TranscriptPage</li>
+        <li>Uses ITranscriptionService + IMinutesGeneratorService (mocked)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 4: TRANSCRIPT -->
+<div class="section" style="margin-bottom: 32px;">
+  <h3>4. Transcript Page</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Layout</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Header: back arrow + "Transcript" + search + avatar</li>
+        <li>Meeting header: "LIVE SESSION" label, title (36sp), speaker avatars overlapping, metadata</li>
+        <li>CollectionView of transcript segments:</li>
+        <li>Each segment: Border (white, rounded 12dp, ghost shadow)</li>
+        <li>→ timestamp badge, speaker indicator (colored square with "S1"/"S2"), speaker name + text</li>
+        <li>AI Insight breaks: centered chip between segments ("AI Identified Key Topic: Technical Debt")</li>
+        <li>Floating "Generate Minutes" FAB: gradient pill button, fixed bottom center</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">ViewModel Bindings</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li><code>Meeting</code> — Meeting model with title, date, duration</li>
+        <li><code>Segments</code> — ObservableCollection of transcript items (includes AI insight items as a different type)</li>
+        <li><code>GenerateMinutesCommand</code> → ProcessingPage then MinutesPage</li>
+        <li>DataTemplateSelector to differentiate speaker segments from AI insight breaks</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 5: MINUTES -->
+<div class="section" style="margin-bottom: 32px;">
+  <h3>5. Minutes Page</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Layout (Bento Grid)</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Header: hamburger + "Meeting Minutes" + avatar</li>
+        <li>Hero section: blue left border (4dp), meeting type label, title (36sp), date+duration, Edit + Export buttons</li>
+        <li>Attendees card: white bg, icon, list of names with colored initial circles</li>
+        <li>Key Discussion Points card: white bg, bullet list with primary-colored dots</li>
+        <li>Decisions card: FULL PRIMARY BG (#005FAA), white text, 2-col grid of frosted glass sub-cards with category labels</li>
+        <li>Action Items: SurfaceContainerLow bg, checklist with checkboxes, assignee + due date</li>
+        <li>"AI-Generated Intelligence Layer" badge at bottom</li>
+        <li>Bottom tab bar visible</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">ViewModel Bindings</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li><code>Minutes</code> — MeetingMinutes model</li>
+        <li><code>Attendees</code> — ObservableCollection</li>
+        <li><code>DiscussionPoints</code> — ObservableCollection&lt;string&gt;</li>
+        <li><code>Decisions</code> — ObservableCollection (Category + Text)</li>
+        <li><code>ActionItems</code> — ObservableCollection&lt;ActionItem&gt;</li>
+        <li><code>ToggleActionItemCommand</code> — marks item complete in SQLite</li>
+        <li><code>EditCommand</code> → EditMinutesPage</li>
+        <li><code>ExportCommand</code> → ExportPage</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 6: EDIT MINUTES -->
+<div class="section" style="margin-bottom: 32px;">
+  <h3>6. Edit Minutes Page</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Layout</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Header: X close + "Edit Minutes" + "Save Changes" button (blue pill)</li>
+        <li>Title: Entry control styled as transparent borderless input (30sp ExtraBold)</li>
+        <li>"AI-REFINED" badge + date label</li>
+        <li>Rich text area: WebView with contenteditable HTML</li>
+        <li>Pre-loaded with meeting minutes formatted as HTML</li>
+        <li>Fixed bottom toolbar: B / I / U / bullet / numbered / quote / link buttons + "AI Polish" pill</li>
+        <li>Toolbar sends JS commands to WebView (execCommand)</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">ViewModel Bindings</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li><code>Title</code> — two-way bound Entry</li>
+        <li><code>HtmlContent</code> — string loaded into WebView</li>
+        <li><code>SaveCommand</code> → extracts HTML from WebView, saves to SQLite, pops back</li>
+        <li><code>FormatBoldCommand</code>, <code>FormatItalicCommand</code>, etc. → invoke JS</li>
+        <li><code>AiPolishCommand</code> → mock service (future: real AI rewrite)</li>
+        <li><code>HasChanges</code> — tracks dirty state for save button</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 7: EXPORT -->
+<div class="section" style="margin-bottom: 32px;">
+  <h3>7. Export Page</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Layout</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Header: X close + "Export Minutes" + avatar</li>
+        <li>Success state: checkmark circle (SecondaryContainer bg) + "Your minutes are ready to share." (28sp bold) + subtitle</li>
+        <li>Document preview card: Border (white, rounded 32dp)</li>
+        <li>→ "DOCUMENT PREVIEW" label, filename, date+size, PDF icon</li>
+        <li>→ Visual placeholder: skeleton bars mimicking document content</li>
+        <li>"Download PDF" button: full-width gradient pill, 64dp height</li>
+        <li>"SHARE WITH TEAM" section: 4 icon buttons (Slack/Email/Drive/More) as rounded squares</li>
+        <li>Bottom tab bar visible</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">ViewModel Bindings</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li><code>DocumentName</code>, <code>ExportDate</code>, <code>FileSize</code></li>
+        <li><code>DownloadPdfCommand</code> → IPdfExportService generates PDF, saves to device</li>
+        <li><code>ShareCommand</code> → MAUI Share API (native share sheet)</li>
+        <li>Share buttons: Slack/Email/Drive use Share.RequestAsync with specific targets where available, fallback to generic share</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 8 & 9 -->
+<div class="section">
+  <h3>8. Meetings Page (Search Tab) & 9. Settings Page</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Meetings Page</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>SearchBar at top with mockup styling</li>
+        <li>Filter chips: All / Transcribed / Minutes Ready</li>
+        <li>CollectionView reusing same meeting card template as Dashboard</li>
+        <li>Empty state: single large "Quiet." label per design system</li>
+        <li>Swipe-to-delete on meeting items</li>
+      </ul>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #005FAA;">Settings Page</strong>
+      <ul style="font-size: 14px; margin-top: 8px; padding-left: 16px; color: #404752;">
+        <li>Grouped sections: Audio (quality picker), Storage (clear cache), About</li>
+        <li>Future-ready: AI Provider config, Theme toggle, Account</li>
+        <li>Uses standard MAUI TableView/ListView styling</li>
+        <li>Minimal — not a priority screen for this version</li>
+      </ul>
+    </div>
+  </div>
+</div>

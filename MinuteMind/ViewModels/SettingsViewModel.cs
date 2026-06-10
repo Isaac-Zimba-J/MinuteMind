@@ -9,6 +9,7 @@ public partial class SettingsViewModel : ObservableObject
         isDarkMode = Preferences.Default.Get("settings_dark_mode", false);
         autoTranscribe = Preferences.Default.Get("settings_auto_transcribe", true);
         selectedLanguage = Preferences.Default.Get("settings_language", "English");
+        groqApiKey = Preferences.Default.Get("groq_api_key", string.Empty);
         ApplyTheme(isDarkMode);
     }
 
@@ -22,7 +23,15 @@ public partial class SettingsViewModel : ObservableObject
     string selectedLanguage;
 
     [ObservableProperty]
+    string groqApiKey;
+
+    [ObservableProperty]
     string appVersion = AppInfo.VersionString;
+
+    partial void OnGroqApiKeyChanged(string value)
+    {
+        Preferences.Default.Set("groq_api_key", value);
+    }
 
     partial void OnIsDarkModeChanged(bool value)
     {

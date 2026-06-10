@@ -151,6 +151,46 @@
                     </Border>
                 </VerticalStackLayout>
 
+                <!-- AI Section -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="AI MINUTES"
+                           FontFamily="InterSemiBold"
+                           FontSize="11"
+                           CharacterSpacing="2"
+                           TextColor="{StaticResource Primary}"
+                           Margin="0,0,0,12" />
+
+                    <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                            Padding="20"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 16">
+                        <VerticalStackLayout Spacing="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Groq API Key"
+                                       FontFamily="InterMedium"
+                                       FontSize="16"
+                                       TextColor="{StaticResource OnSurface}" />
+                                <Label Text="Free key from console.groq.com — required for AI minutes"
+                                       FontFamily="InterRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource OnSurfaceVariant}" />
+                            </VerticalStackLayout>
+                            <Border BackgroundColor="{StaticResource SurfaceContainer}"
+                                    Padding="14,12"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12">
+                                <Entry Text="{Binding GroqApiKey}"
+                                       Placeholder="gsk_..."
+                                       FontFamily="InterRegular"
+                                       FontSize="14"
+                                       TextColor="{StaticResource OnSurface}"
+                                       PlaceholderColor="{StaticResource OnSurfaceVariant}"
+                                       BackgroundColor="Transparent" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
                 <!-- About Section -->
                 <VerticalStackLayout Spacing="4">
                     <Label Text="ABOUT"
@@ -191,7 +231,7 @@
                                        TextColor="{StaticResource OnSurface}"
                                        VerticalOptions="Center" />
                                 <Label Grid.Column="1"
-                                       Text="Whisper (Local)"
+                                       Text="Whisper + Groq AI"
                                        FontFamily="InterRegular"
                                        FontSize="14"
                                        TextColor="{StaticResource OnSurfaceVariant}"

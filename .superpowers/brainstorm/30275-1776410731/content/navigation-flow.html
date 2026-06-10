@@ -1,0 +1,129 @@
+<h2>MinuteMind — Screen Flow & Navigation</h2>
+<p class="subtitle">Bottom tab navigation with stack-based flows per tab</p>
+
+<div class="section">
+  <h3>Navigation Architecture</h3>
+  <div class="mockup">
+    <div class="mockup-header">App Navigation Map</div>
+    <div class="mockup-body" style="padding: 24px; font-family: system-ui;">
+      <!-- Tab Bar -->
+      <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+        <div style="flex:1; background: #0379D5; color: white; padding: 12px 16px; border-radius: 12px; text-align: center; font-weight: 600;">
+          🏠 Home
+        </div>
+        <div style="flex:1; background: #E8F0FE; color: #0379D5; padding: 12px 16px; border-radius: 12px; text-align: center; font-weight: 600;">
+          📁 Meetings
+        </div>
+        <div style="flex:1; background: #E8F0FE; color: #0379D5; padding: 12px 16px; border-radius: 12px; text-align: center; font-weight: 600;">
+          ⚙️ Settings
+        </div>
+      </div>
+
+      <!-- Flow Diagram -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+        <!-- Home Tab Flow -->
+        <div>
+          <div style="font-weight: 700; color: #0379D5; margin-bottom: 8px; font-size: 14px;">HOME TAB FLOW</div>
+          <div style="background: #F7F7F7; border: 2px solid #0379D5; border-radius: 12px; padding: 12px; margin-bottom: 8px;">
+            <strong>Dashboard</strong><br>
+            <span style="font-size: 13px; color: #666;">Hero + Record/Upload cards + Recent list</span>
+          </div>
+          <div style="text-align: center; color: #0379D5; font-size: 18px;">↓</div>
+          <div style="display: flex; gap: 8px;">
+            <div style="flex:1; background: #FFF3E0; border: 2px solid #BD5B00; border-radius: 12px; padding: 10px; font-size: 13px;">
+              <strong>Recording</strong><br>
+              Timer + Waveform + Stop
+            </div>
+            <div style="flex:1; background: #E8F0FE; border: 2px solid #5E799E; border-radius: 12px; padding: 10px; font-size: 13px;">
+              <strong>File Picker</strong><br>
+              Select audio file
+            </div>
+          </div>
+          <div style="text-align: center; color: #0379D5; font-size: 18px;">↓</div>
+          <div style="background: #F3E8FD; border: 2px solid #7C3AED; border-radius: 12px; padding: 12px;">
+            <strong>Processing</strong><br>
+            <span style="font-size: 13px; color: #666;">Upload → Transcribe → Generate (animated steps)</span>
+          </div>
+          <div style="text-align: center; color: #0379D5; font-size: 18px;">↓</div>
+          <div style="background: #E8F5E9; border: 2px solid #2E7D32; border-radius: 12px; padding: 12px;">
+            <strong>Transcript</strong><br>
+            <span style="font-size: 13px; color: #666;">Full text + "Generate Minutes" button</span>
+          </div>
+          <div style="text-align: center; color: #0379D5; font-size: 18px;">↓</div>
+          <div style="background: #E3F2FD; border: 2px solid #1565C0; border-radius: 12px; padding: 12px;">
+            <strong>Minutes</strong><br>
+            <span style="font-size: 13px; color: #666;">Structured view: attendees, decisions, actions</span>
+          </div>
+          <div style="text-align: center; color: #0379D5; font-size: 18px;">↓ ↓</div>
+          <div style="display: flex; gap: 8px;">
+            <div style="flex:1; background: #FFF8E1; border: 2px solid #F9A825; border-radius: 12px; padding: 10px; font-size: 13px;">
+              <strong>Edit</strong><br>
+              Rich editing
+            </div>
+            <div style="flex:1; background: #FCE4EC; border: 2px solid #C62828; border-radius: 12px; padding: 10px; font-size: 13px;">
+              <strong>Export</strong><br>
+              PDF preview + share
+            </div>
+          </div>
+        </div>
+
+        <!-- Meetings Tab Flow -->
+        <div>
+          <div style="font-weight: 700; color: #0379D5; margin-bottom: 8px; font-size: 14px;">MEETINGS TAB FLOW</div>
+          <div style="background: #F7F7F7; border: 2px solid #0379D5; border-radius: 12px; padding: 12px; margin-bottom: 8px;">
+            <strong>All Meetings</strong><br>
+            <span style="font-size: 13px; color: #666;">Searchable list with filters (date, status)</span>
+          </div>
+          <div style="text-align: center; color: #0379D5; font-size: 18px;">↓</div>
+          <div style="background: #E3F2FD; border: 2px solid #1565C0; border-radius: 12px; padding: 12px;">
+            <strong>Meeting Detail</strong><br>
+            <span style="font-size: 13px; color: #666;">Reuses Minutes screen with meeting context</span>
+          </div>
+          <div style="text-align: center; color: #0379D5; font-size: 18px;">↓</div>
+          <div style="display: flex; gap: 8px;">
+            <div style="flex:1; background: #FFF8E1; border: 2px solid #F9A825; border-radius: 12px; padding: 10px; font-size: 13px;">
+              <strong>Edit</strong>
+            </div>
+            <div style="flex:1; background: #FCE4EC; border: 2px solid #C62828; border-radius: 12px; padding: 10px; font-size: 13px;">
+              <strong>Export</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div>
+          <div style="font-weight: 700; color: #0379D5; margin-bottom: 8px; font-size: 14px;">SETTINGS TAB</div>
+          <div style="background: #F7F7F7; border: 2px solid #0379D5; border-radius: 12px; padding: 12px; margin-bottom: 8px;">
+            <strong>Settings</strong><br>
+            <span style="font-size: 13px; color: #666;">Audio quality, storage, about, future AI config</span>
+          </div>
+          <div style="margin-top: 24px; background: #F0F0F0; border-radius: 12px; padding: 16px; font-size: 13px; color: #888;">
+            <strong>Future:</strong> AI provider settings, account, theme toggle
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 24px;">
+  <h3>Key Design Decisions</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #0379D5;">3 Tabs</strong>
+      <p style="margin: 4px 0 0; font-size: 14px; color: #555;">Home (capture flow), Meetings (browse/manage), Settings. Clean and focused.</p>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #0379D5;">Linear Capture Flow</strong>
+      <p style="margin: 4px 0 0; font-size: 14px; color: #555;">Record/Upload → Processing → Transcript → Minutes. Each step pushes onto the navigation stack.</p>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #0379D5;">Shared Screens</strong>
+      <p style="margin: 4px 0 0; font-size: 14px; color: #555;">Minutes, Edit, and Export screens are reused from both Home and Meetings tabs.</p>
+    </div>
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 16px;">
+      <strong style="color: #0379D5;">8 Unique Screens Total</strong>
+      <p style="margin: 4px 0 0; font-size: 14px; color: #555;">Dashboard, Recording, Processing, Transcript, Minutes, Edit, Export, Settings. Plus Meetings list.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+{"type":"server-started","port":65322,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:65322","screen_dir":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/content","state_dir":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/state"}
+{"type":"screen-added","file":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/content/navigation-flow.html"}
+{"type":"screen-updated","file":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/content/navigation-flow.html"}
+{"type":"screen-added","file":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/content/screen-specs.html"}
+{"type":"screen-added","file":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/content/waiting.html"}
+{"type":"screen-updated","file":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/content/screen-specs.html"}
+{"type":"screen-updated","file":"/Users/zimbadev/Documents/Workspace/Maui Projects/MinuteMind/.superpowers/brainstorm/30275-1776410731/content/waiting.html"}
+{"type":"server-stopped","reason":"owner process exited"}

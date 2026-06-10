@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "android: run",
+            "type": "shell",
+            "command": "dotnet build MinuteMind/MinuteMind.csproj -f net10.0-android -c Debug -t:Run",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "android: build (no deploy)",
+            "type": "shell",
+            "command": "dotnet build MinuteMind/MinuteMind.csproj -f net10.0-android -c Debug",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

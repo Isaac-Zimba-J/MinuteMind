@@ -6,10 +6,11 @@ namespace MinuteMind.ViewModels;
 
 public partial class RecordingViewModel(
     IAudioRecorderService audioRecorder,
-    INavigationService navigationService) : ObservableObject
+    INavigationService navigationService,
+    IMeetingRepository meetingRepository) : ObservableObject
 {
     [ObservableProperty]
-    string meetingTitle = "Strategy Alignment Meeting";
+    string meetingTitle = "Meeting 1";
 
     [ObservableProperty]
     string elapsedTime = "00:00:00";
@@ -40,6 +41,13 @@ public partial class RecordingViewModel(
 
     private IDispatcherTimer? _timer;
     private TimeSpan _elapsed;
+
+    [RelayCommand]
+    async Task LoadDefaultTitle()
+    {
+        var all = await meetingRepository.GetAllAsync();
+        MeetingTitle = $"Meeting {all.Count + 1}";
+    }
 
     [RelayCommand]
     async Task StartRecording()

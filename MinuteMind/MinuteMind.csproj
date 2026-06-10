@@ -36,6 +36,7 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+        <RuntimeIdentifiers Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">android-arm64</RuntimeIdentifiers>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
     </PropertyGroup>
@@ -72,6 +73,8 @@
         <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
         <PackageReference Include="Whisper.net" Version="1.9.0" />
         <PackageReference Include="Whisper.net.Runtime" Version="1.9.0" />
+        <PackageReference Include="LLamaSharp" Version="0.20.0" />
+        <PackageReference Include="LLamaSharp.Backend.Cpu" Version="0.20.0" />
     </ItemGroup>
 
     <ItemGroup>

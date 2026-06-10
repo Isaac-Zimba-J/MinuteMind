@@ -38,7 +38,8 @@ public class LocalTranscriptionService : ITranscriptionService
 
         using var factory = WhisperFactory.FromPath(modelPath);
         using var processor = factory.CreateBuilder()
-            .WithLanguage("auto")
+            .WithLanguage(GetWhisperLanguageCode())
+            .WithPrompt("Meeting discussion, business context, action items, decisions:")
             .Build();
 
         progress?.Report("Preparing audio...");
@@ -179,4 +180,21 @@ public class LocalTranscriptionService : ITranscriptionService
 
         return Task.FromResult(outputPath);
     }
+
+    private static string GetWhisperLanguageCode() =>
+        Preferences.Default.Get("settings_language", "English") switch
+        {
+            "English"    => "en",
+            "Spanish"    => "es",
+            "French"     => "fr",
+            "German"     => "de",
+            "Portuguese" => "pt",
+            "Italian"    => "it",
+            "Chinese"    => "zh",
+            "Japanese"   => "ja",
+            "Korean"     => "ko",
+            "Arabic"     => "ar",
+            "Hindi"      => "hi",
+            _            => "auto"
+        };
 }

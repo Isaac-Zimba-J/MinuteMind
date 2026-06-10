@@ -14,7 +14,7 @@ public class LlmMinutesGeneratorService(IHttpClientFactory httpClientFactory) : 
     private const string ModelUrl = "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-q4_k_m.gguf";
     private const int MaxTranscriptChars = 6000;
 
-    private string ModelPath => Path.Combine(FileSystem.AppDataDirectory, ModelFileName);
+    private readonly string _modelPath = Path.Combine(FileSystem.AppDataDirectory, ModelFileName);
 
     public async Task<MeetingMinutes> GenerateAsync(
         List<TranscriptSegment> transcript,
@@ -23,7 +23,7 @@ public class LlmMinutesGeneratorService(IHttpClientFactory httpClientFactory) : 
         await EnsureModelDownloadedAsync(progress);
 
         progress?.Report("Loading AI model…");
-        var modelParams = new ModelParams(ModelPath)
+        var modelParams = new ModelParams(_modelPath)
         {
             ContextSize = 4096u,
             GpuLayerCount = 0
@@ -55,10 +55,13 @@ public class LlmMinutesGeneratorService(IHttpClientFactory httpClientFactory) : 
 
     private async Task EnsureModelDownloadedAsync(IProgress<string>? progress)
     {
-        if (File.Exists(ModelPath))
+        if (File.Exists(_modelPath))
             return;
 
-        var tempPath = ModelPath + ".tmp";
+        var tempPath = _modelPath + ".tmp";
+        if (File.Exists(tempPath))
+            File.Delete(tempPath);
+
         try
         {
             using var client = httpClientFactory.CreateClient();
@@ -90,7 +93,7 @@ public class LlmMinutesGeneratorService(IHttpClientFactory httpClientFactory) : 
             throw;
         }
 
-        File.Move(tempPath, ModelPath);
+        File.Move(tempPath, _modelPath);
     }
 
     private static string BuildPrompt(List<TranscriptSegment> transcript)
@@ -109,7 +112,7 @@ public class LlmMinutesGeneratorService(IHttpClientFactory httpClientFactory) : 
         var transcriptText = new StringBuilder();
         foreach (var seg in transcript)
         {
-            var line = $"[{seg.Timestamp:mm\\:ss}] {seg.Speaker}: {seg.Text}\n";
+            var line = $"[{seg.TimestampDisplay}] {seg.Speaker}: {seg.Text}\n";
             if (transcriptText.Length + line.Length > MaxTranscriptChars)
                 break;
             transcriptText.Append(line);

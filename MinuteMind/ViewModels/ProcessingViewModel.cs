@@ -39,6 +39,24 @@ public partial class ProcessingViewModel(
     [RelayCommand]
     async Task StartProcessing()
     {
+        try
+        {
+            await RunProcessingAsync();
+        }
+        catch (Exception ex)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Shell.Current.DisplayAlert(
+                    "Processing Error",
+                    $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace?[..Math.Min(500, ex.StackTrace?.Length ?? 0)]}",
+                    "OK");
+            });
+        }
+    }
+
+    async Task RunProcessingAsync()
+    {
         // Step 1: Upload / prepare
         Steps[0].Status = StepStatus.Active;
         Steps[0].Subtitle = "Preparing file...";
@@ -58,7 +76,12 @@ public partial class ProcessingViewModel(
         // Step 3: Generate minutes
         Steps[2].Status = StepStatus.Active;
         Steps[2].Subtitle = "Analyzing transcript...";
-        var minutes = await minutesGenerator.GenerateAsync(segments);
+        var minutes = await minutesGenerator.GenerateAsync(
+            segments,
+            new Progress<string>(msg =>
+            {
+                MainThread.BeginInvokeOnMainThread(() => Steps[2].Subtitle = msg);
+            }));
         Steps[2].Status = StepStatus.Completed;
         Steps[2].Subtitle = "Minutes ready";
 

@@ -4,5 +4,7 @@ namespace MinuteMind.Services.Contracts;
 
 public interface IMinutesGeneratorService
 {
-    Task<MeetingMinutes> GenerateAsync(List<TranscriptSegment> transcript);
+    Task<MeetingMinutes> GenerateAsync(
+        List<TranscriptSegment> transcript,
+        IProgress<string>? progress = null);
 }

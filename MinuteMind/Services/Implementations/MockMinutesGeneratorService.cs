@@ -5,7 +5,7 @@ namespace MinuteMind.Services.Implementations;
 
 public class MockMinutesGeneratorService : IMinutesGeneratorService
 {
-    public async Task<MeetingMinutes> GenerateAsync(List<TranscriptSegment> transcript)
+    public async Task<MeetingMinutes> GenerateAsync(List<TranscriptSegment> transcript, IProgress<string>? progress = null)
     {
         await Task.Delay(2000);
 

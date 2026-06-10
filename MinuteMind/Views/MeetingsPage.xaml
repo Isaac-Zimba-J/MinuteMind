@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MinuteMind.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MinuteMind.Views.MeetingsPage"
              BackgroundColor="{StaticResource Surface}"
              Shell.NavBarIsVisible="False">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing"
+                                        Command="{Binding LoadMeetingsCommand}" />
+    </ContentPage.Behaviors>
 
     <Grid RowDefinitions="Auto,*">
 
@@ -46,76 +52,81 @@
 
         <!-- Meetings List -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
-            <VerticalStackLayout Padding="24,24,24,24"
-                                 Spacing="16"
-                                 BindableLayout.ItemsSource="{Binding Meetings}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="models:Meeting">
-                        <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
-                                Padding="20"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 24">
-                            <Border.Shadow>
-                                <Shadow Brush="{StaticResource OnSurfaceBrush}"
-                                        Offset="0,12" Radius="32" Opacity="0.04" />
-                            </Border.Shadow>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.OpenMeetingCommand}"
-                                                      CommandParameter="{Binding Id}" />
-                            </Border.GestureRecognizers>
-                            <Grid ColumnDefinitions="56,*,Auto" ColumnSpacing="16">
-                                <Border WidthRequest="56"
-                                        HeightRequest="56"
-                                        BackgroundColor="{StaticResource SurfaceContainer}"
+            <VerticalStackLayout Padding="24,24,24,24" Spacing="16">
+
+                <!-- Meeting items with swipe-to-delete -->
+                <VerticalStackLayout Spacing="16"
+                                     BindableLayout.ItemsSource="{Binding Meetings}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:Meeting">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Text="Delete"
+                                                   BackgroundColor="{StaticResource Error}"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteMeetingCommand}"
+                                                   CommandParameter="{Binding .}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                                        Padding="20"
                                         StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 16">
-                                    <!-- <Label Text="&#x1F4C4;"
-                                           FontSize="22"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center" /> -->
-                                           <Image Source="doc.png"
-                                                  HeightRequest="22"
-                                                  WidthRequest="22"
-                                                  HorizontalOptions="Center"
-                                                  VerticalOptions="Center" />
+                                        StrokeShape="RoundRectangle 24">
+                                    <Border.Shadow>
+                                        <Shadow Brush="{StaticResource OnSurfaceBrush}"
+                                                Offset="0,12" Radius="32" Opacity="0.04" />
+                                    </Border.Shadow>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.OpenMeetingCommand}"
+                                            CommandParameter="{Binding Id}" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="56,*,Auto" ColumnSpacing="16">
+                                        <Border WidthRequest="56"
+                                                HeightRequest="56"
+                                                BackgroundColor="{StaticResource SurfaceContainer}"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 16">
+                                            <Image Source="doc.png"
+                                                   HeightRequest="22" WidthRequest="22"
+                                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                            <Label Text="{Binding Title}"
+                                                   FontFamily="PlusJakartaSemiBold"
+                                                   FontSize="16"
+                                                   TextColor="{StaticResource OnSurface}"
+                                                   LineBreakMode="TailTruncation" />
+                                            <HorizontalStackLayout Spacing="8">
+                                                <Label Text="{Binding CreatedAt, StringFormat='{0:MMM dd, yyyy}'}"
+                                                       FontFamily="InterRegular"
+                                                       FontSize="12"
+                                                       TextColor="{StaticResource OnSurfaceVariant}" />
+                                                <Border WidthRequest="4" HeightRequest="4"
+                                                        BackgroundColor="{StaticResource OutlineVariant}"
+                                                        StrokeThickness="0" StrokeShape="RoundRectangle 2"
+                                                        VerticalOptions="Center" />
+                                                <Label Text="{Binding Duration, StringFormat='{0:mm\\:ss}'}"
+                                                       FontFamily="InterRegular"
+                                                       FontSize="12"
+                                                       TextColor="{StaticResource OnSurfaceVariant}" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="2"
+                                               Text="&#x203A;"
+                                               FontSize="24"
+                                               TextColor="{StaticResource OnSurfaceVariant}"
+                                               VerticalOptions="Center" />
+                                    </Grid>
                                 </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
 
-                                <VerticalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
-                                    <Label Text="{Binding Title}"
-                                           FontFamily="PlusJakartaSemiBold"
-                                           FontSize="16"
-                                           TextColor="{StaticResource OnSurface}"
-                                           LineBreakMode="TailTruncation" />
-                                    <HorizontalStackLayout Spacing="8">
-                                        <Label Text="{Binding CreatedAt, StringFormat='{0:MMM dd, yyyy}'}"
-                                               FontFamily="InterRegular"
-                                               FontSize="12"
-                                               TextColor="{StaticResource OnSurfaceVariant}" />
-                                        <Border WidthRequest="4" HeightRequest="4"
-                                                BackgroundColor="{StaticResource OutlineVariant}"
-                                                StrokeThickness="0" StrokeShape="RoundRectangle 2"
-                                                VerticalOptions="Center" />
-                                        <Label Text="{Binding Duration, StringFormat='{0:mm\\:ss}'}"
-                                               FontFamily="InterRegular"
-                                               FontSize="12"
-                                               TextColor="{StaticResource OnSurfaceVariant}" />
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
-
-                                <Label Grid.Column="2"
-                                       Text="&#x203A;"
-                                       FontSize="24"
-                                       TextColor="{StaticResource OnSurfaceVariant}"
-                                       VerticalOptions="Center" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-
-                <!-- Empty State -->
-                <VerticalStackLayout IsVisible="False"
+                <!-- Empty state -->
+                <VerticalStackLayout IsVisible="{Binding HasNoMeetings}"
                                      HorizontalOptions="Center"
-                                     VerticalOptions="Center"
                                      Spacing="12"
                                      Margin="0,80,0,0">
                     <Label Text="No meetings yet"
@@ -129,6 +140,7 @@
                            TextColor="{StaticResource OnSurfaceVariant}"
                            HorizontalTextAlignment="Center" />
                 </VerticalStackLayout>
+
             </VerticalStackLayout>
         </ScrollView>
 

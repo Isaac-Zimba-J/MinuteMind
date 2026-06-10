@@ -19,6 +19,8 @@ public partial class MeetingsViewModel(
     [ObservableProperty]
     bool isLoading;
 
+    public bool HasNoMeetings => Meetings.Count == 0;
+
     [RelayCommand]
     async Task LoadMeetings()
     {
@@ -26,6 +28,7 @@ public partial class MeetingsViewModel(
         var all = await meetingRepository.GetAllAsync();
         Meetings = new ObservableCollection<Meeting>(all);
         IsLoading = false;
+        OnPropertyChanged(nameof(HasNoMeetings));
     }
 
     [RelayCommand]
@@ -44,6 +47,7 @@ public partial class MeetingsViewModel(
             Meetings = new ObservableCollection<Meeting>(filtered);
         }
         IsLoading = false;
+        OnPropertyChanged(nameof(HasNoMeetings));
     }
 
     [RelayCommand]
@@ -51,5 +55,20 @@ public partial class MeetingsViewModel(
     {
         await navigationService.GoToAsync(nameof(Views.MinutesPage),
             new Dictionary<string, object> { { "MeetingId", meetingId } });
+    }
+
+    [RelayCommand]
+    async Task DeleteMeeting(Meeting meeting)
+    {
+        var confirmed = await Shell.Current.DisplayAlert(
+            "Delete Meeting",
+            $"Delete \"{meeting.Title}\"? This cannot be undone.",
+            "Delete", "Cancel");
+
+        if (!confirmed) return;
+
+        await meetingRepository.DeleteAsync(meeting);
+        Meetings.Remove(meeting);
+        OnPropertyChanged(nameof(HasNoMeetings));
     }
 }

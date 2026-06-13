@@ -48,26 +48,43 @@ public partial class ExportViewModel(
     }
 
     [RelayCommand]
-    async Task DownloadPdf()
+    Task DownloadPdf() => ExportAndShareAsync();
+
+    [RelayCommand]
+    Task SharePdf() => ExportAndShareAsync();
+
+    async Task ExportAndShareAsync()
     {
         if (_meeting is null) return;
 
-        IsExporting = true;
-        ExportedFilePath = await pdfExportService.ExportAsync(_meeting);
-        IsExporting = false;
-        ExportComplete = true;
-    }
-
-    [RelayCommand]
-    async Task SharePdf()
-    {
-        if (string.IsNullOrEmpty(ExportedFilePath)) return;
-
-        await Share.Default.RequestAsync(new ShareFileRequest
+        try
         {
-            Title = MeetingTitle,
-            File = new ShareFile(ExportedFilePath)
-        });
+            if (string.IsNullOrEmpty(ExportedFilePath) || !File.Exists(ExportedFilePath))
+            {
+                IsExporting = true;
+                ExportedFilePath = await pdfExportService.ExportAsync(_meeting);
+                IsExporting = false;
+                ExportComplete = true;
+            }
+
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = MeetingTitle,
+                File = new ShareFile(ExportedFilePath)
+            });
+        }
+        catch (Exception ex)
+        {
+            IsExporting = false;
+            var inner = ex.InnerException;
+            var msg = ex.Message;
+            while (inner is not null)
+            {
+                msg += $"\n→ {inner.Message}";
+                inner = inner.InnerException;
+            }
+            await Shell.Current.DisplayAlert("Export Failed", msg, "OK");
+        }
     }
 
     [RelayCommand]

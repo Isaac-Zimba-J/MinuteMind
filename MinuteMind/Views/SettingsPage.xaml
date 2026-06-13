@@ -130,6 +130,9 @@
 
                             <!-- Language -->
                             <Grid ColumnDefinitions="*,Auto" HeightRequest="56">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PickLanguageCommand}" />
+                                </Grid.GestureRecognizers>
                                 <VerticalStackLayout Spacing="4" VerticalOptions="Center">
                                     <Label Text="Transcription Language"
                                            FontFamily="InterMedium"
@@ -140,12 +143,17 @@
                                            FontSize="12"
                                            TextColor="{StaticResource OnSurfaceVariant}" />
                                 </VerticalStackLayout>
-                                <Label Grid.Column="1"
-                                       Text="{Binding SelectedLanguage}"
-                                       FontFamily="InterMedium"
-                                       FontSize="14"
-                                       TextColor="{StaticResource Primary}"
-                                       VerticalOptions="Center" />
+                                <HorizontalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                    <Label Text="{Binding SelectedLanguage}"
+                                           FontFamily="InterMedium"
+                                           FontSize="14"
+                                           TextColor="{StaticResource Primary}"
+                                           VerticalOptions="Center" />
+                                    <Label Text="&#x203A;"
+                                           FontSize="20"
+                                           TextColor="{StaticResource Primary}"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
                             </Grid>
                         </VerticalStackLayout>
                     </Border>
@@ -188,6 +196,42 @@
                                        BackgroundColor="Transparent" />
                             </Border>
                         </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Data Section -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="DATA"
+                           FontFamily="InterSemiBold"
+                           FontSize="11"
+                           CharacterSpacing="2"
+                           TextColor="{StaticResource Primary}"
+                           Margin="0,0,0,12" />
+
+                    <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                            Padding="20"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 16">
+                        <Grid ColumnDefinitions="*,Auto" HeightRequest="52">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DeleteAllMeetingsCommand}" />
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                                <Label Text="Delete All Meetings"
+                                       FontFamily="InterMedium"
+                                       FontSize="16"
+                                       TextColor="{StaticResource Error}" />
+                                <Label Text="Permanently remove all meetings and minutes"
+                                       FontFamily="InterRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource OnSurfaceVariant}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1"
+                                   Text="&#x203A;"
+                                   FontSize="24"
+                                   TextColor="{StaticResource Error}"
+                                   VerticalOptions="Center" />
+                        </Grid>
                     </Border>
                 </VerticalStackLayout>
 

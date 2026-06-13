@@ -10,20 +10,27 @@ public class GroqMinutesGeneratorService(IHttpClientFactory httpClientFactory) :
 {
     private const string ApiUrl = "https://api.groq.com/openai/v1/chat/completions";
     private const string Model = "llama-3.3-70b-versatile";
-    private const int MaxTranscriptChars = 8000;
+    private const int MaxTranscriptChars = 12000;
 
     private static readonly JsonSerializerOptions _jsonOptions =
         new() { PropertyNameCaseInsensitive = true };
 
     private static readonly string _systemPrompt =
-        "You are a meeting minutes assistant. Extract structured notes from the meeting transcript.\n" +
+        "You are a meeting minutes assistant. Extract COMPREHENSIVE and DETAILED notes from the full meeting transcript. Do not miss any topic.\n\n" +
         "Return ONLY a valid JSON object with this exact schema:\n" +
         "{\n" +
+        "  \"Summary\": \"2-3 sentence overview: what was discussed, what was decided, what happens next\",\n" +
         "  \"Attendees\": [\"name or Speaker 1 if unknown\"],\n" +
-        "  \"DiscussionPoints\": [\"concise bullet point\"],\n" +
+        "  \"DiscussionPoints\": [\"every distinct topic discussed\"],\n" +
         "  \"Decisions\": [{\"Category\": \"Technical|Process|Budget|Other\", \"Text\": \"decision made\"}],\n" +
-        "  \"ActionItems\": [{\"Description\": \"task\", \"Assignee\": \"person or Unknown\", \"DueDate\": \"date or empty string\", \"IsCompleted\": false}]\n" +
-        "}";
+        "  \"ActionItems\": [{\"Description\": \"specific task\", \"Assignee\": \"person or Unknown\", \"DueDate\": \"date or empty string\", \"IsCompleted\": false}]\n" +
+        "}\n\n" +
+        "CRITICAL rules for DiscussionPoints:\n" +
+        "- Extract EVERY separate topic, subject, or issue mentioned — even briefly\n" +
+        "- List each topic as its own bullet, never combine multiple subjects into one\n" +
+        "- Be specific: write 'reviewed Q3 mobile release timeline' not just 'discussed project'\n" +
+        "- A 10-minute meeting should have 5-8 points; a 30-minute meeting 10-20 points\n" +
+        "- Include context and concrete details in each point";
 
     public async Task<MeetingMinutes> GenerateAsync(
         List<TranscriptSegment> transcript,
@@ -45,7 +52,7 @@ public class GroqMinutesGeneratorService(IHttpClientFactory httpClientFactory) :
                 new { role = "user",   content = BuildTranscriptText(transcript) }
             },
             temperature = 0.1,
-            max_tokens = 1024,
+            max_tokens = 2048,
             response_format = new { type = "json_object" }
         };
 

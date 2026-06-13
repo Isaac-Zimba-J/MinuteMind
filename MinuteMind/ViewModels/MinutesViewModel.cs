@@ -21,6 +21,12 @@ public partial class MinutesViewModel(
     string meetingDuration = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasSummary))]
+    string summary = string.Empty;
+
+    public bool HasSummary => !string.IsNullOrWhiteSpace(Summary);
+
+    [ObservableProperty]
     ObservableCollection<string> attendees = new();
 
     [ObservableProperty]
@@ -58,6 +64,7 @@ public partial class MinutesViewModel(
             var minutes = JsonSerializer.Deserialize<MeetingMinutes>(meeting.MinutesJson);
             if (minutes is not null)
             {
+                Summary = minutes.Summary;
                 Attendees = new ObservableCollection<string>(minutes.Attendees);
                 DiscussionPoints = new ObservableCollection<string>(minutes.DiscussionPoints);
                 Decisions = new ObservableCollection<Decision>(minutes.Decisions);

@@ -19,8 +19,11 @@ public partial class DashboardViewModel(
     [RelayCommand]
     async Task LoadRecentMeetings()
     {
-        var meetings = await meetingRepository.GetRecentAsync(3);
-        RecentMeetings = new ObservableCollection<Meeting>(meetings);
+        var meetings = await meetingRepository.GetRecentAsync(5);
+        RecentMeetings.Clear();
+        foreach (var m in meetings)
+            RecentMeetings.Add(m);
+        OnPropertyChanged(nameof(HasNoRecentMeetings));
     }
 
     [RelayCommand]

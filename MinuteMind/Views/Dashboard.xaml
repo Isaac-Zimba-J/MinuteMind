@@ -102,15 +102,6 @@
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center" />
                             </Border>
-                            <!-- Spacer (pushes text to bottom) -->
-                            <BoxView Grid.Row="1">
-                                <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
-                                <GradientStop Color="{StaticResource PrimaryContainer}" Offset="1.0" />
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                            </BoxView>
                             <!-- Text -->
                             <VerticalStackLayout Grid.Row="2" Spacing="4">
                                 <Label Text="Record Meeting"
@@ -189,25 +180,26 @@
                     </Label>
                 </Grid>
 
+                <!-- Empty state — separate element, not BindableLayout.EmptyView -->
+                <VerticalStackLayout IsVisible="{Binding HasNoRecentMeetings}"
+                                     HorizontalOptions="Center"
+                                     Spacing="12"
+                                     Margin="0,24,0,0">
+                    <Label Text="No meetings recorded yet"
+                           FontFamily="PlusJakartaSemiBold"
+                           FontSize="16"
+                           TextColor="{StaticResource OnSurfaceVariant}"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="Tap Record Meeting to get started."
+                           FontFamily="InterRegular"
+                           FontSize="14"
+                           TextColor="{StaticResource OnSurfaceVariant}"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+
                 <!-- Meeting Cards — bound to real SQLite data -->
                 <VerticalStackLayout Spacing="16"
                                      BindableLayout.ItemsSource="{Binding RecentMeetings}">
-                    <BindableLayout.EmptyView>
-                        <VerticalStackLayout HorizontalOptions="Center"
-                                             Spacing="12"
-                                             Margin="0,24,0,0">
-                            <Label Text="No meetings recorded yet"
-                                   FontFamily="PlusJakartaSemiBold"
-                                   FontSize="16"
-                                   TextColor="{StaticResource OnSurfaceVariant}"
-                                   HorizontalTextAlignment="Center" />
-                            <Label Text="Tap Record Meeting to get started."
-                                   FontFamily="InterRegular"
-                                   FontSize="14"
-                                   TextColor="{StaticResource OnSurfaceVariant}"
-                                   HorizontalTextAlignment="Center" />
-                        </VerticalStackLayout>
-                    </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="models:Meeting">
                             <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"

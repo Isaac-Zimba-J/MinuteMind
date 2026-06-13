@@ -25,13 +25,13 @@ public class MinuteMindDatabase
     public async Task<List<Meeting>> GetAllMeetingsAsync()
     {
         await InitAsync();
-        return await _db!.Table<Meeting>().OrderByDescending(m => m.Date).ToListAsync();
+        return await _db!.Table<Meeting>().OrderByDescending(m => m.CreatedAt).ToListAsync();
     }
 
     public async Task<List<Meeting>> GetRecentMeetingsAsync(int count)
     {
         await InitAsync();
-        return await _db!.Table<Meeting>().OrderByDescending(m => m.Date).Take(count).ToListAsync();
+        return await _db!.Table<Meeting>().OrderByDescending(m => m.CreatedAt).Take(count).ToListAsync();
     }
 
     public async Task<Meeting?> GetMeetingAsync(int id)
@@ -48,6 +48,8 @@ public class MinuteMindDatabase
         if (meeting.Id == 0)
         {
             meeting.CreatedAt = DateTime.UtcNow;
+            if (meeting.Date == default)
+                meeting.Date = DateTime.UtcNow;
             return await _db!.InsertAsync(meeting);
         }
 
@@ -58,5 +60,11 @@ public class MinuteMindDatabase
     {
         await InitAsync();
         return await _db!.DeleteAsync(meeting);
+    }
+
+    public async Task DeleteAllMeetingsAsync()
+    {
+        await InitAsync();
+        await _db!.DeleteAllAsync<Meeting>();
     }
 }

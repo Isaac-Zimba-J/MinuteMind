@@ -89,6 +89,7 @@ public partial class ProcessingViewModel(
         var meeting = new Meeting
         {
             Title = _meetingTitle,
+            Date = DateTime.UtcNow,
             DurationTicks = _durationTicks,
             Status = MeetingStatus.MinutesReady,
             TranscriptJson = System.Text.Json.JsonSerializer.Serialize(segments),

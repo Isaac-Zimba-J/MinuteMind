@@ -26,7 +26,8 @@ public partial class MeetingsViewModel(
     {
         IsLoading = true;
         var all = await meetingRepository.GetAllAsync();
-        Meetings = new ObservableCollection<Meeting>(all);
+        Meetings.Clear();
+        foreach (var m in all) Meetings.Add(m);
         IsLoading = false;
         OnPropertyChanged(nameof(HasNoMeetings));
     }
@@ -36,16 +37,11 @@ public partial class MeetingsViewModel(
     {
         IsLoading = true;
         var all = await meetingRepository.GetAllAsync();
-        if (string.IsNullOrWhiteSpace(SearchQuery))
-        {
-            Meetings = new ObservableCollection<Meeting>(all);
-        }
-        else
-        {
-            var filtered = all.Where(m =>
-                m.Title.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase));
-            Meetings = new ObservableCollection<Meeting>(filtered);
-        }
+        var filtered = string.IsNullOrWhiteSpace(SearchQuery)
+            ? all
+            : all.Where(m => m.Title.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+        Meetings.Clear();
+        foreach (var m in filtered) Meetings.Add(m);
         IsLoading = false;
         OnPropertyChanged(nameof(HasNoMeetings));
     }

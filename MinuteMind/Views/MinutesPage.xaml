@@ -154,6 +154,34 @@
                     </Border>
                 </HorizontalStackLayout>
 
+                <!-- Summary Card -->
+                <Border IsVisible="{Binding HasSummary}"
+                        BackgroundColor="{StaticResource SurfaceContainerLowest}"
+                        Padding="24"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource OutlineVariant}"
+                        StrokeShape="RoundRectangle 16">
+                    <VerticalStackLayout Spacing="10">
+                        <HorizontalStackLayout Spacing="8">
+                            <Image Source="sparkle.png"
+                                   HeightRequest="14"
+                                   WidthRequest="14"
+                                   VerticalOptions="Center" />
+                            <Label Text="MEETING SUMMARY"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="11"
+                                   CharacterSpacing="2"
+                                   TextColor="{StaticResource Primary}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Label Text="{Binding Summary}"
+                               FontFamily="InterRegular"
+                               FontSize="16"
+                               LineHeight="1.6"
+                               TextColor="{StaticResource OnSurfaceVariant}" />
+                    </VerticalStackLayout>
+                </Border>
+
                 <!-- Attendees Card -->
                 <Border BackgroundColor="{StaticResource SurfaceContainerLowest}"
                         Padding="24"

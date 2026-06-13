@@ -11,4 +11,5 @@ public class MeetingRepository(MinuteMindDatabase database) : IMeetingRepository
     public Task<Meeting?> GetByIdAsync(int id) => database.GetMeetingAsync(id);
     public Task<int> SaveAsync(Meeting meeting) => database.SaveMeetingAsync(meeting);
     public Task<int> DeleteAsync(Meeting meeting) => database.DeleteMeetingAsync(meeting);
+    public Task DeleteAllAsync() => database.DeleteAllMeetingsAsync();
 }

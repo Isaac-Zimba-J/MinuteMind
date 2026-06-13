@@ -4,7 +4,6 @@ public class WaveformView : GraphicsView
 {
     private readonly WaveformDrawable _drawable = new();
 
-    // Bindable property so XAML/VM can set Levels and trigger a redraw
     public static readonly BindableProperty LevelsProperty =
         BindableProperty.Create(
             nameof(Levels),
@@ -13,15 +12,28 @@ public class WaveformView : GraphicsView
             new float[13],
             propertyChanged: OnLevelsChanged);
 
+    public static readonly BindableProperty BarColorProperty =
+        BindableProperty.Create(
+            nameof(BarColor),
+            typeof(Color),
+            typeof(WaveformView),
+            Color.FromArgb("#005FAA"),
+            propertyChanged: OnBarColorChanged);
+
     public float[] Levels
     {
         get => (float[])GetValue(LevelsProperty);
         set => SetValue(LevelsProperty, value);
     }
 
+    public Color BarColor
+    {
+        get => (Color)GetValue(BarColorProperty);
+        set => SetValue(BarColorProperty, value);
+    }
+
     public WaveformView()
     {
-        // Tell GraphicsView which object does the drawing
         Drawable = _drawable;
     }
 
@@ -30,7 +42,15 @@ public class WaveformView : GraphicsView
         if (bindable is WaveformView view && newValue is float[] levels)
         {
             view._drawable.Levels = levels;
-            // Invalidate tells MAUI to call Draw() again on the next frame
+            view.Invalidate();
+        }
+    }
+
+    private static void OnBarColorChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is WaveformView view && newValue is Color color)
+        {
+            view._drawable.BarColor = color;
             view.Invalidate();
         }
     }

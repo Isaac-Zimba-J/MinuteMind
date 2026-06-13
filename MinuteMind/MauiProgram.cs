@@ -34,6 +34,29 @@ public static class MauiProgram
                 fonts.AddFont("Inter-SemiBold.ttf", "InterSemiBold");
             });
 
+        // Remove bottom underline from Entry / Editor on Android
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+        {
+#if ANDROID
+            handler.PlatformView.BackgroundTintList =
+                Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+        });
+        Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+        {
+#if ANDROID
+            handler.PlatformView.BackgroundTintList =
+                Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+        });
+
+        // Audio converter — platform-specific, handles AAC/M4A/MP3 → 16 kHz WAV for Whisper
+#if ANDROID
+        builder.Services.AddSingleton<IAudioConverter, AndroidAudioConverter>();
+#else
+        builder.Services.AddSingleton<IAudioConverter, NullAudioConverter>();
+#endif
+
         // Database
         builder.Services.AddSingleton<MinuteMindDatabase>();
 

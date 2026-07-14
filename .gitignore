@@ -3,3 +3,7 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+# API keys — never commit
+**/Resources/Raw/.env
+.env
